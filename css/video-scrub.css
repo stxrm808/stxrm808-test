@@ -182,8 +182,7 @@
 }
 
 @media (max-width: 768px) {
-  /* On mobile the video autoplays — no scroll needed, so normal height */
-  .video-scrub { height: 100vh; margin-top: 0; }
+  .video-scrub { height: 170vh; margin-top: 0; }
 
   .video-scrub__hl-text {
     font-size: clamp(40px, 12vw, 72px);

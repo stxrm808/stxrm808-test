@@ -1,7 +1,6 @@
 /* ============================================================
    stxrm808 — VIDEO SCROLL SCRUB
-   Desktop: GSAP ScrollTrigger scrubs video.currentTime
-   Mobile/iOS: autoplay fallback (iOS blocks currentTime seeking)
+   iOS unlock: briefly play then pause so currentTime seeking works.
    Video file: assets/explosion.mp4
    ============================================================ */
 
@@ -18,22 +17,6 @@
     section.classList.add('video-scrub--hidden');
   });
 
-  // iOS / Android: currentTime seeking is blocked until user interaction.
-  // Fall back to autoplay so the video still plays on mobile.
-  const isMobile = window.innerWidth < 768 ||
-    /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-  if (isMobile) {
-    video.setAttribute('autoplay', '');
-    video.play().catch(() => {});
-    // Headline stays visible, then CSS transition fades it out after video ends
-    const headline = document.getElementById('scrubHeadline');
-    if (headline) {
-      headline.classList.add('is-mobile-visible');
-    }
-    return;
-  }
-
   video.pause();
   video.currentTime = 0;
 
@@ -46,6 +29,21 @@
       return;
     }
 
+    // iOS Safari blocks currentTime until video has been "touched" by play().
+    // Briefly play then immediately pause to unlock seeking, then scrub normally.
+    const needsUnlock = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    if (needsUnlock) {
+      video.play().then(() => {
+        video.pause();
+        video.currentTime = 0;
+        setupScrollScrub(duration);
+      }).catch(() => setupScrollScrub(duration));
+    } else {
+      setupScrollScrub(duration);
+    }
+  }
+
+  function setupScrollScrub(duration) {
     const headline = document.getElementById('scrubHeadline');
     const counter  = document.getElementById('scrubCounter');
     const pctEl    = document.getElementById('scrubPct');
@@ -84,11 +82,11 @@
             hlOpacity = 0;
             hlY = -140;
           } else {
-            const t = (p - 0.55) / 0.25;
-            hlOpacity = 1 - t;
-            hlY = Math.round(t * -140);
+            const frac = (p - 0.55) / 0.25;
+            hlOpacity = 1 - frac;
+            hlY = Math.round(frac * -140);
           }
-          headline.style.opacity  = hlOpacity;
+          headline.style.opacity   = hlOpacity;
           headline.style.transform = `translateY(${hlY}px)`;
         }
 
