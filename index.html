@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>stxrm808 — Premium Drum Kits for Trap &amp; Hip Hop Producers</title>
+  <meta name="description" content="stxrm808 drum kits built for producers who don't sound like the genre. The Flames Bounce Kit series — hard-hitting 808s, crispy snares, fire-coded percussion." />
+  <meta property="og:title" content="stxrm808 — Don't Sound Like Them." />
+  <meta property="og:description" content="Premium drum kits for trap and hip hop producers who refuse to sound generic." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.stxrm808.com/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="stxrm808 — Don't Sound Like Them." />
+  <meta name="twitter:description" content="Premium drum kits for trap and hip hop producers who refuse to sound generic." />
+  <meta name="twitter:image" content="https://www.stxrm808.com/assets/FLAMES%20BOUNCE%20KIT%20COVER%20by%20%40blameiton313.png" />
+  <meta property="og:image" content="https://www.stxrm808.com/assets/FLAMES%20BOUNCE%20KIT%20COVER%20by%20%40blameiton313.png" />
+  <meta name="theme-color" content="#080808" />
+  <link rel="canonical" href="https://www.stxrm808.com/" />
+  <link rel="icon" href="assets/favicon.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css?v=3" />
+  <link rel="stylesheet" href="css/video-scrub.css?v=3" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "stxrm808",
+    "url": "https://www.stxrm808.com",
+    "description": "Premium drum kits for trap and hip hop producers.",
+    "slogan": "Don't Sound Like Them."
+  }
+  </script>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════════ -->
+  <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="stxrm808 Home">
+        <span class="nav__logo-text">stxrm808<span class="nav__logo-accent">.</span></span>
+      </a>
+      <ul class="nav__links" role="list">
+        <li><a href="#kits" class="nav__link">Kits</a></li>
+        <li><a href="#demos" class="nav__link">Demos</a></li>
+      </ul>
+      <button class="nav__burger" id="navBurger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <!-- Mobile menu -->
+    <div class="nav__mobile" id="navMobile" aria-hidden="true">
+      <ul role="list">
+        <li><a href="#kits" class="nav__mobile-link">Kits</a></li>
+        <li><a href="#demos" class="nav__mobile-link">Demos</a></li>
+      </ul>
+      <a href="#kits" class="btn btn--primary nav__mobile-cta">GET KITS →</a>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ═══════════════════════════════════════════
+         VIDEO SCROLL SCRUB — explosion.mp4
+         First section — full viewport hero.
+         Headline + CTAs overlaid inside sticky.
+    ═══════════════════════════════════════════ -->
+    <section class="video-scrub" id="videoScrub" aria-hidden="true">
+      <div class="video-scrub__sticky">
+        <video
+          id="scrubVideo"
+          class="video-scrub__video"
+          muted
+          playsinline
+          preload="auto"
+          disablepictureinpicture
+        >
+          <source src="assets/explosion.mp4?v=2" type="video/mp4" />
+        </video>
+
+        <!-- Headline + CTAs overlay — first thing user sees, fades out near end -->
+        <div class="video-scrub__headline" id="scrubHeadline" aria-hidden="true">
+          <div class="video-scrub__hl-tag">Premium Drum Kits</div>
+          <p class="video-scrub__hl-text">SET THE BEAT<br/><span>ON FIRE.</span></p>
+          <div class="video-scrub__hl-ctas">
+            <a href="#kits" class="btn btn--primary btn--lg">GET THE KITS →</a>
+            <a href="#demos" class="btn btn--ghost">Hear It First</a>
+          </div>
+        </div>
+        <!-- Scroll progress counter bottom-right -->
+        <div class="video-scrub__counter" id="scrubCounter" aria-hidden="true">
+          <span class="video-scrub__counter-num" id="scrubPct">0</span>
+          <span class="video-scrub__counter-pct">%</span>
+        </div>
+        <div class="video-scrub__blend-top"></div>
+        <div class="video-scrub__blend-bottom"></div>
+        <div class="video-scrub__vignette"></div>
+        <div class="video-scrub__progress" id="scrubProgress"></div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         FEATURED PRODUCER — moved before kits
+    ═══════════════════════════════════════════ -->
+    <section class="featured-producer" id="demos">
+      <video class="featured-producer__bg" src="assets/producer-bg.mp4" autoplay muted loop playsinline aria-hidden="true"></video>
+      <div class="container">
+
+        <div class="featured-producer__header">
+          <p class="section-tag reveal-item">Heard In The Wild</p>
+          <h2 class="section-heading reveal-item">Producers don't lie.<br />The beats do the talking.</h2>
+        </div>
+
+        <!-- Card 1: ThisisYT -->
+        <div class="fp-card reveal-item">
+          <div class="fp-card__artist">
+            <div class="fp-card__avatar" id="fpAvatar">
+              <img src="assets/thisisyt-pfp.jpg" alt="thisisyt" class="fp-card__avatar-img"
+                   onerror="this.style.display='none';document.getElementById('fpAvatarFallback').style.display='flex';" />
+              <span class="fp-card__avatar-fallback" id="fpAvatarFallback">YT</span>
+            </div>
+            <div class="fp-card__artist-info">
+              <span class="fp-card__artist-tag">Featured Producer</span>
+              <div class="fp-card__name-row">
+                <h3 class="fp-card__artist-name">ThisisYT</h3>
+                <svg class="fp-card__verified" viewBox="0 0 24 24" aria-label="Verified" role="img">
+                  <circle cx="12" cy="12" r="12" fill="#3897f0"/>
+                  <path d="M10.5 16.5l-4-4 1.41-1.41L10.5 13.67l6.09-6.08 1.41 1.42z" fill="#fff"/>
+                </svg>
+              </div>
+              <a href="https://instagram.com/thisisyt1" target="_blank" rel="noopener" class="fp-card__ig">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.919-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                @thisisyt1
+              </a>
+            </div>
+            <div class="fp-card__kit-badge">Flames Bounce Kit</div>
+          </div>
+          <div class="fp-card__player">
+            <div class="fp-card__player-label">made with Flames Bounce</div>
+            <div class="fp-card__controls">
+              <button class="fp-card__play-btn" id="fpPlayBtn" aria-label="Play beat">
+                <svg class="fp-play-icon" width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M3 2.5L13 8 3 13.5V2.5Z"/></svg>
+                <svg class="fp-pause-icon" width="18" height="18" viewBox="0 0 16 16" fill="currentColor" style="display:none"><rect x="3" y="2" width="4" height="12"/><rect x="9" y="2" width="4" height="12"/></svg>
+              </button>
+              <div class="fp-card__waveform" aria-hidden="true">
+                <div id="waveform-thisisyt" class="fp-freq-bars"></div>
+              </div>
+              <span class="fp-card__time" id="fpTime">0:00</span>
+            </div>
+            <div class="fp-card__timeline" id="fpTimeline" role="slider" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <div class="fp-card__timeline-fill" id="fpTimelineFill"></div>
+              <div class="fp-card__timeline-thumb" id="fpTimelineThumb"></div>
+            </div>
+            <div class="fp-card__time-row">
+              <span id="fpTimeCurrent">0:00</span>
+              <span id="fpTimeDuration">—</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: stxrm808 -->
+        <div class="fp-card reveal-item">
+          <div class="fp-card__artist">
+            <div class="fp-card__avatar" id="fp2Avatar">
+              <img src="assets/stxrm808-pfp.jpg" alt="stxrm808" class="fp-card__avatar-img"
+                   onerror="this.style.display='none';document.getElementById('fp2AvatarFallback').style.display='flex';" />
+              <span class="fp-card__avatar-fallback" id="fp2AvatarFallback">STX</span>
+            </div>
+            <div class="fp-card__artist-info">
+              <span class="fp-card__artist-tag">Kit Creator</span>
+              <div class="fp-card__name-row">
+                <h3 class="fp-card__artist-name">stxrm808</h3>
+                <svg class="fp-card__verified" viewBox="0 0 24 24" aria-label="Verified" role="img">
+                  <circle cx="12" cy="12" r="12" fill="#3897f0"/>
+                  <path d="M10.5 16.5l-4-4 1.41-1.41L10.5 13.67l6.09-6.08 1.41 1.42z" fill="#fff"/>
+                </svg>
+              </div>
+              <a href="https://instagram.com/stxrm808" target="_blank" rel="noopener" class="fp-card__ig">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.919-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                @stxrm808
+              </a>
+            </div>
+            <div class="fp-card__kit-badge">Flames Bounce Kit</div>
+          </div>
+          <div class="fp-card__player">
+            <div class="fp-card__player-label">made with Flames Bounce</div>
+            <div class="fp-card__controls">
+              <button class="fp-card__play-btn" id="fp2PlayBtn" aria-label="Play beat">
+                <svg class="fp-play-icon" width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M3 2.5L13 8 3 13.5V2.5Z"/></svg>
+                <svg class="fp-pause-icon" width="18" height="18" viewBox="0 0 16 16" fill="currentColor" style="display:none"><rect x="3" y="2" width="4" height="12"/><rect x="9" y="2" width="4" height="12"/></svg>
+              </button>
+              <div class="fp-card__waveform" aria-hidden="true">
+                <div id="waveform-stxrm808" class="fp-freq-bars"></div>
+              </div>
+              <span class="fp-card__time" id="fp2Time">0:00</span>
+            </div>
+            <div class="fp-card__timeline" id="fp2Timeline" role="slider" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <div class="fp-card__timeline-fill" id="fp2TimelineFill"></div>
+              <div class="fp-card__timeline-thumb" id="fp2TimelineThumb"></div>
+            </div>
+            <div class="fp-card__time-row">
+              <span id="fp2TimeCurrent">0:00</span>
+              <span id="fp2TimeDuration">—</span>
+            </div>
+            <div class="fp-card__sample-credit">sample by <a href="https://instagram.com/theycallmehop" target="_blank" rel="noopener">@theycallmehop</a> &amp; <a href="https://instagram.com/proddxdek" target="_blank" rel="noopener">@proddxdek</a></div>
+          </div>
+        </div>
+
+      </div>
+
+      <audio id="fpAudio" src="assets/thisisyt.wav" preload="metadata"></audio>
+      <audio id="fp2Audio" src="assets/stxrm808.wav" preload="metadata"></audio>
+
+      <p class="featured-producer__slogan" aria-hidden="true">This is what<br /><em>fire</em> sounds like.</p>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         PRODUCTS — DRUM KIT CARDS
+    ═══════════════════════════════════════════ -->
+    <section class="kits" id="kits">
+      <div class="container">
+        <div class="kits__header">
+          <p class="section-tag reveal-item">The Kits</p>
+          <h2 class="section-heading reveal-item">Drop-in ready.<br />No filler. No fluff.</h2>
+          <p class="section-sub reveal-item">Every sample was built in a session where something was at stake. You can hear the difference.</p>
+        </div>
+
+        <div class="kits__grid">
+
+          <!-- KIT 1: Flames Bounce Vol. 2 -->
+          <article class="kit-card kit-card--teaser reveal-item" data-type="drum-kit">
+            <div class="kit-card__media kit-card__media--teaser">
+              <div class="kit-card__teaser-fire" aria-hidden="true"></div>
+              <div class="kit-card__teaser-overlay">
+                <span class="kit-card__teaser-badge">COMING SOON</span>
+              </div>
+              <div class="kit-card__hover-glow" aria-hidden="true"></div>
+            </div>
+            <div class="kit-card__body kit-card__body--dim">
+              <div class="kit-card__meta">
+                <span class="kit-card__type">DRUM KIT</span>
+              </div>
+              <h3 class="kit-card__name">Flames Bounce Vol. 2</h3>
+              <div class="kit-card__redacted-lines" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="kit-card__footer">
+                <div class="kit-card__price-block">
+                  <span class="kit-card__price" style="opacity:0.3">40€</span>
+                </div>
+                <a href="#newsletter" class="btn btn--ghost btn--sm">NOTIFY ME →</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- KIT 2: Flames Bounce Kit -->
+          <article class="kit-card reveal-item" data-type="drum-kit">
+            <div class="kit-card__media">
+              <img src="assets/FLAMES%20BOUNCE%20KIT%20COVER%20by%20%40blameiton313.png"
+                   alt="Flames Bounce Kit — official cover art"
+                   class="kit-card__cover"
+                   loading="lazy" />
+              <div class="kit-card__badge kit-card__badge--amber">ORIGINAL</div>
+              <div class="kit-card__hover-glow" aria-hidden="true"></div>
+            </div>
+            <div class="kit-card__body">
+              <div class="kit-card__meta">
+                <span class="kit-card__type">DRUM KIT</span>
+                <span class="kit-card__count">— 260+ Samples</span>
+              </div>
+              <h3 class="kit-card__name">Flames Bounce Kit</h3>
+              <p class="kit-card__desc">The drums that went through German rap. From underground sessions to the charts — producers across the scene reached for these sounds. This is where the stxrm808 bounce started.</p>
+              <ul class="kit-card__tags" aria-label="Kit contents">
+                <li>808s</li>
+                <li>Kicks</li>
+                <li>Snares</li>
+                <li>Hi-Hats</li>
+                <li>Percs</li>
+              </ul>
+              <div class="kit-card__footer">
+                <div class="kit-card__price-block">
+                  <span class="kit-card__price">25€</span>
+                </div>
+                <a href="https://dnaplugins.lemonsqueezy.com/checkout/buy/079eb10a-39ae-4c25-9c5e-7eb2505b402b?embed=1&logo=0" class="btn btn--fire lemonsqueezy-button">BUY NOW →</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- More kits coming -->
+        <div class="kits__upcoming reveal-item">
+          <div class="kits__upcoming-inner">
+            <span class="kits__upcoming-label">More dropping soon</span>
+            <p class="kits__upcoming-text">We don't drop on a schedule. We drop when it's ready.</p>
+            <a href="#newsletter" class="btn btn--ghost btn--sm">Stay in the Lab →</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         BRAND IDENTITY STATEMENT
+    ═══════════════════════════════════════════ -->
+    <section class="identity" id="about">
+      <div class="container">
+        <div class="identity__inner">
+          <div class="identity__text reveal-item">
+            <p class="section-tag">stxrm808</p>
+            <h2 class="identity__heading">Get some bounce.</h2>
+            <p class="identity__body">
+              Drums that lock in, hit hard, and make the whole beat move. No searching, no tweaking — just drop it in and feel the difference.
+            </p>
+          </div>
+          <div class="identity__stat-grid reveal-item" aria-label="Kit statistics">
+            <div class="identity__stat">
+              <span class="identity__stat-num">720<span class="identity__stat-plus">+</span></span>
+              <span class="identity__stat-label">Total Samples</span>
+            </div>
+            <div class="identity__stat">
+              <span class="identity__stat-num">1</span>
+              <span class="identity__stat-label">Kit Released</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         NEWSLETTER — STAY IN THE LAB
+    ═══════════════════════════════════════════ -->
+    <section class="newsletter" id="newsletter">
+      <div class="container">
+        <div class="newsletter__inner reveal-item">
+          <div class="newsletter__text">
+            <h2 class="newsletter__heading">Stay in the lab.</h2>
+            <p class="newsletter__sub">New kits drop when they're ready. No schedule. No spam. Just fire delivered to your inbox before anyone else.</p>
+          </div>
+          <form class="newsletter__form" action="#" method="post" aria-label="Newsletter signup">
+            <label for="emailInput" class="sr-only">Email address</label>
+            <input type="email" id="emailInput" name="email" class="newsletter__input" placeholder="your@email.com" required autocomplete="email" />
+            <button type="submit" class="btn btn--primary">JOIN</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <span class="footer__logo">stxrm808<span class="nav__logo-accent">.</span></span>
+          <p class="footer__tagline">Don't Sound Like Them.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <div class="footer__nav-col">
+            <strong>Kits</strong>
+            <ul role="list">
+              <li><a href="#kits">Flames Bounce Kit</a></li>
+              <li><a href="#newsletter">Vol. 2 — Notify Me</a></li>
+            </ul>
+          </div>
+          <div class="footer__nav-col">
+            <strong>stxrm808</strong>
+            <ul role="list">
+              <li><a href="#about">About</a></li>
+              <li><a href="#demos">Producer Demos</a></li>
+            </ul>
+          </div>
+          <div class="footer__nav-col">
+            <strong>Policy</strong>
+            <ul role="list">
+              <li><a href="#">Licensing</a></li>
+              <li><a href="#">Refund Policy</a></li>
+              <li><a href="#">Terms of Use</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">&copy; 2026 stxrm808. All rights reserved.</p>
+        <div class="footer__social" aria-label="Social media links">
+          <a href="https://instagram.com/stxrm808" target="_blank" rel="noopener" aria-label="Instagram" class="footer__social-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#" aria-label="YouTube" class="footer__social-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M22.54 6.42A2.78 2.78 0 0 0 20.59 4.46C18.88 4 12 4 12 4S5.12 4 3.41 4.46A2.78 2.78 0 0 0 1.46 6.42 29.94 29.94 0 0 0 1 12a29.94 29.94 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29.94 29.94 0 0 0 23 12a29.94 29.94 0 0 0-.46-5.58Z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#" aria-label="TikTok" class="footer__social-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.84a8.18 8.18 0 0 0 4.78 1.52V6.89a4.85 4.85 0 0 1-1.01-.2Z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="js/main.js?v=3" defer></script>
+  <script src="js/video-scrub.js?v=3" defer></script>
+  <script src="js/interactions.js?v=3" defer></script>
+  <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
+</body>
+</html>

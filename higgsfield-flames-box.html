@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Higgsfield Prompts — Flames Bounce Kit Box</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --fire:   #FF4400;
+      --amber:  #E8A020;
+      --green:  #00d450;
+      --bg:     #080808;
+      --card:   #101010;
+      --border: #1e1e1e;
+      --text:   #e8e8e8;
+      --muted:  rgba(255,255,255,0.38);
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      min-height: 100vh;
+      padding: 3rem 1.5rem 6rem;
+    }
+
+    /* ── Cover reference block ── */
+    .cover-ref {
+      max-width: 1200px;
+      margin: 0 auto 2.5rem;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 2rem;
+      background: var(--card);
+      border: 1px solid rgba(255,68,0,0.25);
+      border-radius: 14px;
+      padding: 1.5rem;
+      align-items: start;
+    }
+    .cover-ref__img-wrap {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .cover-ref__img {
+      width: 100%;
+      border-radius: 8px;
+      display: block;
+      border: 1px solid var(--border);
+    }
+    .cover-ref__dl {
+      display: block;
+      text-align: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--amber);
+      background: rgba(232,160,32,0.08);
+      border: 1px solid rgba(232,160,32,0.2);
+      border-radius: 6px;
+      padding: 0.5rem;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .cover-ref__dl:hover { background: rgba(232,160,32,0.15); }
+    .cover-ref__label {
+      font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--fire); margin-bottom: 0.4rem;
+    }
+    .cover-ref__title {
+      font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.6rem;
+    }
+    .cover-ref__title span { color: var(--fire); }
+    .cover-ref__desc {
+      font-size: 0.82rem; line-height: 1.65; color: rgba(255,255,255,0.55);
+      margin-bottom: 1.25rem;
+    }
+    .steps { display: flex; flex-direction: column; gap: 0.75rem; }
+    .step {
+      display: flex; gap: 0.85rem; align-items: flex-start;
+      background: #0d0d0d; border: 1px solid var(--border);
+      border-radius: 8px; padding: 0.75rem 1rem;
+    }
+    .step__num {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em;
+      color: var(--fire); background: rgba(255,68,0,0.1);
+      border: 1px solid rgba(255,68,0,0.2); border-radius: 99px;
+      padding: 0.2rem 0.55rem; flex-shrink: 0; margin-top: 1px;
+    }
+    .step__title { font-size: 0.8rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .step__text  { font-size: 0.75rem; line-height: 1.6; color: var(--muted); }
+    .step__text code { color: var(--amber); font-size: 0.72rem; }
+
+    @media (max-width: 700px) {
+      .cover-ref { grid-template-columns: 1fr; }
+      .cover-ref__img-wrap { max-width: 240px; }
+    }
+
+    /* ── Header ── */
+    .header { text-align: center; margin-bottom: 3rem; }
+    .header__tag { font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--fire); margin-bottom: 0.8rem; }
+    .header__title { font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.02em; }
+    .header__title span { color: var(--fire); }
+    .header__sub { margin-top: 0.6rem; color: var(--muted); font-size: 0.85rem; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.65; }
+
+    /* ── Tip box ── */
+    .tip {
+      max-width: 1200px;
+      margin: 0 auto 3rem;
+      background: rgba(232,160,32,0.06);
+      border: 1px solid rgba(232,160,32,0.25);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .tip__icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+    .tip__text { font-size: 0.8rem; line-height: 1.7; color: rgba(255,255,255,0.65); }
+    .tip__text strong { color: var(--amber); }
+
+    /* ── Concept ── */
+    .concept { max-width: 1200px; margin: 0 auto 5rem; }
+    .concept__title-bar {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 1.5rem; padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border); flex-wrap: wrap;
+    }
+    .concept__number {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.25em;
+      color: var(--fire); background: rgba(255,68,0,0.1);
+      border: 1px solid rgba(255,68,0,0.25); padding: 0.25rem 0.7rem; border-radius: 99px;
+    }
+    .concept__name { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.01em; }
+    .concept__vibe { margin-left: auto; font-size: 0.75rem; color: var(--muted); letter-spacing: 0.08em; font-style: italic; }
+
+    /* ── Shared base block ── */
+    .base-block {
+      background: #0d0d0d;
+      border: 1px solid rgba(232,160,32,0.2);
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+    .base-block__head {
+      padding: 0.75rem 1.25rem;
+      border-bottom: 1px solid rgba(232,160,32,0.15);
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    .base-badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+      background: rgba(232,160,32,0.1); color: var(--amber);
+      border: 1px solid rgba(232,160,32,0.3); padding: 0.25rem 0.7rem; border-radius: 99px;
+    }
+    .base-badge__dot { width: 5px; height: 5px; border-radius: 50%; background: var(--amber); }
+    .base-block__note { font-size: 0.72rem; color: rgba(232,160,32,0.6); font-style: italic; }
+    .base-block__body { padding: 1rem 1.25rem; }
+    .base-text {
+      background: #080808; border: 1px solid #181818; border-radius: 8px;
+      padding: 0.9rem 1.1rem; font-size: 0.8rem; line-height: 1.78;
+      color: rgba(255,255,255,0.65); white-space: pre-wrap; word-break: break-word;
+      user-select: all; cursor: text;
+    }
+
+    /* ── Prompt grid ── */
+    .prompt-grid {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 1rem;
+      align-items: start;
+    }
+    .arrow {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; padding-top: 3.2rem; gap: 0.3rem;
+      color: var(--amber); opacity: 0.4;
+    }
+    .arrow svg { width: 18px; height: 18px; }
+    .arrow span { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; white-space: nowrap; }
+
+    /* ── Prompt card ── */
+    .pcard { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .pcard__head {
+      padding: 1rem 1.25rem 0.8rem; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
+    }
+    .pcard__badge {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 0.25rem 0.65rem; border-radius: 99px;
+    }
+    .pcard__badge--start    { background: rgba(0,210,80,0.1);  color: var(--green); border: 1px solid rgba(0,210,80,0.25); }
+    .pcard__badge--end      { background: rgba(255,68,0,0.1);  color: var(--fire);  border: 1px solid rgba(255,68,0,0.28); }
+    .pcard__badge--trans    { background: rgba(232,160,32,0.1);color: var(--amber); border: 1px solid rgba(232,160,32,0.28);}
+    .pcard__dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+    .pcard__badge--start .pcard__dot { background: var(--green); }
+    .pcard__badge--end   .pcard__dot { background: var(--fire); }
+    .pcard__badge--trans .pcard__dot { background: var(--amber); }
+
+    .copy-btn {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      background: #181818; border: 1px solid #282828; color: var(--muted);
+      font-family: inherit; font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.35rem 0.75rem; border-radius: 7px; cursor: pointer;
+      transition: all 0.15s; white-space: nowrap; flex-shrink: 0;
+    }
+    .copy-btn:hover  { background: #202020; color: #fff; border-color: var(--amber); }
+    .copy-btn.copied { background: rgba(0,180,80,0.12); color: var(--green); border-color: rgba(0,210,80,0.3); }
+
+    /* copy-all button for base+state */
+    .copy-all-btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(255,68,0,0.08); border: 1px solid rgba(255,68,0,0.3);
+      color: var(--fire); font-family: inherit; font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.35rem 0.85rem; border-radius: 7px; cursor: pointer;
+      transition: all 0.15s; white-space: nowrap; flex-shrink: 0;
+    }
+    .copy-all-btn:hover  { background: rgba(255,68,0,0.15); }
+    .copy-all-btn.copied { background: rgba(0,180,80,0.12); color: var(--green); border-color: rgba(0,210,80,0.3); }
+
+    .pcard__body { padding: 1.1rem 1.25rem 1.25rem; }
+    .state-label {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem;
+    }
+    .prompt-text {
+      background: #0a0a0a; border: 1px solid #191919; border-radius: 8px;
+      padding: 1rem 1.1rem; font-size: 0.8rem; line-height: 1.78;
+      color: rgba(255,255,255,0.75); white-space: pre-wrap; word-break: break-word;
+      user-select: all; cursor: text; min-height: 140px;
+    }
+
+    .pcard--full { grid-column: 1 / -1; margin-top: 0.25rem; }
+    .pcard--full .prompt-text { min-height: auto; }
+
+    /* ── Settings ── */
+    .settings {
+      max-width: 1200px; margin: 0 auto 3rem;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.5rem;
+      display: flex; flex-wrap: wrap; gap: 0.75rem 2rem; align-items: center;
+    }
+    .settings__label { font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+    .settings__val   { font-size: 0.85rem; font-weight: 600; color: var(--amber); }
+
+    .divider { max-width: 1200px; margin: 0 auto 3.5rem; border: none; border-top: 1px solid var(--border); }
+
+    @media (max-width: 900px) {
+      .prompt-grid { grid-template-columns: 1fr; }
+      .arrow { flex-direction: row; padding-top: 0; }
+      .pcard--full { grid-column: 1; }
+      .concept__vibe { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <p class="header__tag">stxrm808 × Higgsfield AI — Flames Bounce Kit</p>
+  <h1 class="header__title">Box. Files. <span>Fire.</span></h1>
+  <p class="header__sub">Jedes Konzept hat eine <strong style="color:var(--amber)">identische Basis</strong> für Start + End Frame — gleiche Kamera, gleiches Licht, gleiche Position. Nur der Zustand ändert sich. Nutze "Copy Full Prompt" für den fertigen kombinierten Prompt.</p>
+</div>
+
+<!-- COVER REFERENCE -->
+<div class="cover-ref">
+  <div class="cover-ref__img-wrap">
+    <img src="assets/FLAMES%20BOUNCE%20KIT%20COVER%20by%20%40blameiton313.png"
+         alt="Flames Bounce Kit Cover"
+         class="cover-ref__img" />
+    <a href="assets/FLAMES%20BOUNCE%20KIT%20COVER%20by%20%40blameiton313.png"
+       download
+       class="cover-ref__dl">↓ Download für Upload</a>
+  </div>
+  <div class="cover-ref__info">
+    <p class="cover-ref__label">Dein Cover — Image Reference</p>
+    <h2 class="cover-ref__title">Dieses Bild in <span>beide</span> Frames laden</h2>
+    <p class="cover-ref__desc">Das ist die Referenz für die Box. Lade es in Midjourney und Higgsfield hoch — damit sehen Start Frame und End Frame exakt gleich aus.</p>
+
+    <div class="steps">
+      <div class="step">
+        <span class="step__num">01</span>
+        <div>
+          <p class="step__title">Midjourney — beide Frames</p>
+          <p class="step__text">Cover als Image hochladen → URL in den Prompt einfügen → <code>--cref [URL] --cw 100</code> → mit gleichem <code>--seed 4400</code> beide Frames generieren. Nur den STATE-Teil ändern.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step__num">02</span>
+        <div>
+          <p class="step__title">Higgsfield — Start Frame</p>
+          <p class="step__text">Das Cover direkt als Start Frame in Higgsfield hochladen. Dann End Frame separat generiert (mit Cover als Ref) dort einfügen. Higgsfield interpoliert zwischen beiden.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step__num">03</span>
+        <div>
+          <p class="step__title">Alternativ: Flux / Stable Diffusion</p>
+          <p class="step__text">Cover als img2img Input → Strength 0.3 für Start Frame (kaum Änderung) → Strength 0.85 für End Frame (stark verändert). Gleiche Base-Composition garantiert.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tip">
+  <span class="tip__icon">💡</span>
+  <p class="tip__text">
+    <strong>Wichtig:</strong> Das Cover oben ist deine Image-Reference. Nutze <code style="color:var(--amber)">--cref [cover-url] --cw 100 --seed 4400</code> in Midjourney für <strong>beide Frames</strong>. Ändere nur den STATE am Ende des Prompts. So stimmt die Box in Start und End Frame überein.
+  </p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     CONCEPT 1 — THE BOX EXPLODES
+═══════════════════════════════════════════════════════ -->
+<div class="concept">
+  <div class="concept__title-bar">
+    <span class="concept__number">CONCEPT 01</span>
+    <h2 class="concept__name">The Box Explodes</h2>
+    <span class="concept__vibe">versiegelte Box → explodiert, brennende Files als Splitter</span>
+  </div>
+
+  <!-- SHARED BASE -->
+  <div class="base-block">
+    <div class="base-block__head">
+      <span class="base-badge"><span class="base-badge__dot"></span>Shared Base — identisch in Start &amp; End Frame</span>
+      <span class="base-block__note">Diesen Teil in beiden Prompts verwenden</span>
+    </div>
+    <div class="base-block__body">
+      <div class="base-text" id="c1-base">A drum sample pack product box sitting on a dark polished concrete surface. The box is jet black matte finish, square format, embossed text "FLAMES BOUNCE KIT" in deep orange on the front face, "stxrm808" printed beneath in white. Camera angle: straight-on frontal, eye-level, 50mm lens, the box centered and filling roughly 60% of the frame width. The concrete surface is dark grey with a faint wet sheen that reflects the box as a blurred shadow below it. Background is pure black. A single overhead spotlight from directly above casts a tight cone of light — sharp light on the top face of the box, the front face lit at 45 degrees, hard shadows on the left and right. No other light sources.
+
+Photorealistic product photography, 50mm lens, cinematic studio lighting, single overhead key light, hard directional shadows, dark polished concrete surface, matte black box material with orange embossed lettering, 8K ultra-detailed render. --ar 16:9 --seed 4400</div>
+    </div>
+  </div>
+
+  <div class="prompt-grid">
+
+    <div class="pcard">
+      <div class="pcard__head">
+        <span class="pcard__badge pcard__badge--start"><span class="pcard__dot"></span>Start Frame — State</span>
+        <button class="copy-all-btn" onclick="copyAll('c1-base','c1-start',this)">Copy Full Prompt</button>
+      </div>
+      <div class="pcard__body">
+        <p class="state-label">Nur dieser Teil ändert sich ↓</p>
+        <div class="prompt-text" id="c1-start">STATE: The box is perfectly sealed and intact. All edges are clean and sharp. The lid sits flush and closed. No damage, no fire, no light from inside. The box looks brand new, undisturbed. Complete stillness.</div>
+      </div>
+    </div>
+
+    <div class="arrow">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <span>→</span>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard__head">
+        <span class="pcard__badge pcard__badge--end"><span class="pcard__dot"></span>End Frame — State</span>
+        <button class="copy-all-btn" onclick="copyAll('c1-base','c1-end',this)">Copy Full Prompt</button>
+      </div>
+      <div class="pcard__body">
+        <p class="state-label">Nur dieser Teil ändert sich ↓</p>
+        <div class="prompt-text" id="c1-end">STATE: The box has violently exploded from the inside — the lid is blasted off, the sides torn apart, still in the same position and camera angle. From the destroyed opening, hundreds of small audio sample file cards labeled 808, SNARE, HI-HAT, KICK are erupting outward in every direction like shrapnel, each card on fire trailing orange flame. Fire pours from the interior of the box like an open furnace. The concrete surface around the box is covered in burning embers and sparks. Thick smoke rises from the top. The spotlight still catches the scene from above — same light direction, same angle, only the box is now a blazing explosion.</div>
+      </div>
+    </div>
+
+    <div class="pcard pcard--full">
+      <div class="pcard__head">
+        <span class="pcard__badge pcard__badge--trans"><span class="pcard__dot"></span>Transition Prompt</span>
+        <button class="copy-btn" onclick="copy('c1-trans',this)">Copy</button>
+      </div>
+      <div class="pcard__body">
+        <div class="prompt-text" id="c1-trans">Camera completely locked and static. No movement. 50mm, frontal eye-level on the box.
+
+0:00–0:01 — Box perfectly still and sealed under the spotlight. Complete silence.
+0:01–0:02 — A faint orange glow bleeds from the seams of the lid. The box vibrates imperceptibly. A hairline crack appears on the front face, leaking light.
+0:02–0:03 — Cracks spread rapidly across all sides. Intense orange-white light blazes through every seam. The box shakes violently. The lid bends upward from the pressure inside.
+0:03–0:04 — EXPLOSION. The box blasts apart in a single instant. Lid flies off. File cards erupt outward in every direction, each one burning. Fire pours from the interior. Embers shower the concrete.
+0:04–0:05 — Burning files fall and settle. The box smolders, torn apart. Embers glow on the concrete. Smoke fills the upper frame. Still, cinematic, destroyed.
+
+Motion: absolute stillness → building pressure → instant detonation → slow ember aftermath. File cards must feel like paper with physical weight — spinning, tumbling, burning as they fly. 5 seconds total.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- ═══════════════════════════════════════════════════════
+     CONCEPT 2 — FILE RAIN
+═══════════════════════════════════════════════════════ -->
+<div class="concept">
+  <div class="concept__title-bar">
+    <span class="concept__number">CONCEPT 02</span>
+    <h2 class="concept__name">File Rain</h2>
+    <span class="concept__vibe">Box am Boden → Files steigen auf → fangen Feuer → regnen zurück</span>
+  </div>
+
+  <div class="base-block">
+    <div class="base-block__head">
+      <span class="base-badge"><span class="base-badge__dot"></span>Shared Base — identisch in Start &amp; End Frame</span>
+      <span class="base-block__note">Diesen Teil in beiden Prompts verwenden</span>
+    </div>
+    <div class="base-block__body">
+      <div class="base-text" id="c2-base">The Flames Bounce Kit product box — jet black matte, "FLAMES BOUNCE KIT" embossed in orange, "stxrm808" in white beneath — sitting centered on dark wet asphalt. Camera angle: low ground level looking slightly upward, 24mm wide lens, the box in the lower-center of the frame, the sky filling the upper two-thirds. The sky is heavy dark charcoal grey with slow-moving clouds. The wet asphalt beneath the box reflects its shape as a dark blurred mirror. No other objects visible. The box is lit by a diffuse cold grey ambient light from the overcast sky — even, flat, no hard shadows.
+
+Photorealistic cinematic photography, 24mm wide-angle lens, low angle slightly upward tilt, dark overcast sky filling top of frame, wet asphalt foreground, box centered lower-third, matte black box material, orange embossed text visible, color grade: cold desaturated grey atmosphere, 8K. --ar 16:9 --seed 4400</div>
+    </div>
+  </div>
+
+  <div class="prompt-grid">
+
+    <div class="pcard">
+      <div class="pcard__head">
+        <span class="pcard__badge pcard__badge--start"><span class="pcard__dot"></span>Start Frame — State</span>
+        <button class="copy-all-btn" onclick="copyAll('c2-base','c2-start',this)">Copy Full Prompt</button>
+      </div>
+      <div class="pcard__body">
+        <p class="state-label">Nur dieser Teil ändert sich ↓</p>
+        <div class="prompt-text" id="c2-start">STATE: The box is completely sealed and intact on the asphalt. No fire, no damage. The box emits a very faint warm orange inner glow from its seams — barely visible, as if something alive is inside but contained. The sky above is calm dark grey. Complete stillness.</div>
+      </div>
+    </div>
+
+    <div class="arrow">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <span>→</span>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard__head">
+        <span class="pcard__badge pcard__badge--end"><span class="pcard__dot"></span>End Frame — State</span>
+        <button class="copy-all-btn" onclick="copyAll('c2-base','c2-end',this)">Copy Full Prompt</button>
+      </div>
+      <div class="pcard__body">
+        <p class="state-label">Nur dieser Teil ändert sich ↓</p>
+        <div class="prompt-text" id="c2-end">STATE: The box has burst open, still in the same position on the asphalt. Hundreds of burning audio sample file cards — labeled 808, SNARE, HI-HAT, KICK — are raining down from the sky above, falling at different heights and angles, every one of them on fire and trailing orange flame and black smoke as they descend. The sky is now lit deep orange from the mass of burning files above. The asphalt around the box is covered in landed burning files and glowing embers. The box interior glows like a furnace. Same camera angle — the burning file rain fills the upper two-thirds of the frame where the dark sky was before.</div>
+      </div>
+    </div>
+
+    <div class="pcard pcard--full">
+      <div class="pcard__head">
+        <span class="pcard__badge pcard__badge--trans"><span class="pcard__dot"></span>Transition Prompt</span>
+        <button class="copy-btn" onclick="copy('c2-trans',this)">Copy</button>
+      </div>
+      <div class="pcard__body">
+        <div class="prompt-text" id="c2-trans">Camera locked low-angle, looking slightly up at the box against the dark sky.
+
+0:00–0:01 — Box sealed and faintly glowing on wet asphalt. Dark sky. Stillness.
+0:01–0:02 — The box lid slowly lifts. The first few sample file cards drift upward out of the box like they weigh nothing — floating up into the dark sky slowly, not yet burning.
+0:02–0:03 — Mid-air, the floating files ignite one by one in a rapid chain. Fire spreads file to file. More and more files pour upward from the now open box in a column. The sky begins to fill with burning files at different heights.
+0:03–0:04 — Gravity pulls them back. All burning files begin falling — a dense rain of fire from above. They cascade past the camera level, crashing onto the asphalt and the box below.
+0:04–0:05 — Full file rain. Burning files everywhere, still falling. Asphalt and box on fire. Sky glows orange. Ash drifts. Final frame: held still, overwhelming.
+
+5 seconds total. Files feel like paper — light, fluttering, each burning individually.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- ═══════════════════════════════════════════════════════
+     CONCEPT 3 — VAULT BREAK
+═══════════════════════════════════════════════════════ -->
+<div class="concept">
+  <div class="concept__title-bar">
+    <span class="concept__number">CONCEPT 03</span>
+    <h2 class="concept__name">Vault Break</h2>
+    <span class="concept__vibe">Stahltresor mit Kit-Logo → Tür fliegt raus, Feuer und Files</span>
+  </div>
+
+  <div class="base-block">
+    <div class="base-block__head">
+      <span class="base-badge"><span class="base-badge__dot"></span>Shared Base — identisch in Start &amp; End Frame</span>
+      <span class="base-block__note">Diesen Teil in beiden Prompts verwenden</span>
+    </div>
+    <div class="base-block__body">
+      <div class="base-text" id="c3-base">A heavy industrial circular steel vault door set into a dark aged concrete wall, filling the full frame. The vault door is embossed with "FLAMES BOUNCE KIT" in raised lettering across the center, "stxrm808" beneath it. The door has a large circular locking mechanism in the center with visible bolt handles. The concrete wall around it is raw and dark. Camera angle: perfectly straight-on, frontal, centered, 35mm lens, the vault door filling 80% of the frame. A single harsh utility fluorescent light from the ceiling above throws flat industrial light directly down onto the door. Deep black shadows in the corners of the frame.
+
+Photorealistic cinematic photography, 35mm frontal lens, perfectly centered vault door, industrial concrete wall, harsh overhead fluorescent utility light, heavy steel door with circular lock mechanism and embossed brand text, deep corner shadows, color grade: cold industrial grey-green with black shadows, 8K. --ar 16:9 --seed 4400</div>
+    </div>
+  </div>
+
+  <div class="prompt-grid">
+
+    <div class="pcard">
+      <div class="pcard__head">
+        <span class="pcard__badge pcard__badge--start"><span class="pcard__dot"></span>Start Frame — State</span>
+        <button class="copy-all-btn" onclick="copyAll('c3-base','c3-start',this)">Copy Full Prompt</button>
+      </div>
+      <div class="pcard__body">
+        <p class="state-label">Nur dieser Teil ändert sich ↓</p>
+        <div class="prompt-text" id="c3-start">STATE: The vault door is fully sealed and locked. All bolts engaged. No light from behind it. No heat, no damage, no fire. The circular lock is closed. The door is cold, heavy, immovable. Complete stillness.</div>
+      </div>
+    </div>
+
+    <div class="arrow">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <span>→</span>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard__head">
+        <span class="pcard__badge pcard__badge--end"><span class="pcard__dot"></span>End Frame — State</span>
+        <button class="copy-all-btn" onclick="copyAll('c3-base','c3-end',this)">Copy Full Prompt</button>
+      </div>
+      <div class="pcard__body">
+        <p class="state-label">Nur dieser Teil ändert sich ↓</p>
+        <div class="prompt-text" id="c3-end">STATE: The vault door has been blasted completely off its hinges toward the camera — it is mid-air, spinning at an angle, glowing red-hot around all its edges, with motion blur. The opening behind where the door was is now a furnace: white-orange fire pours out of the vault interior and hundreds of burning sample file cards labeled 808, SNARE, KICK, HI-HAT fly outward in every direction from the interior. The concrete wall around the opening is scorched and cracked from the heat. The same harsh overhead utility light still illuminates the scene from above — same direction, same angle, only the door is gone and fire now fills the frame.</div>
+      </div>
+    </div>
+
+    <div class="pcard pcard--full">
+      <div class="pcard__head">
+        <span class="pcard__badge pcard__badge--trans"><span class="pcard__dot"></span>Transition Prompt</span>
+        <button class="copy-btn" onclick="copy('c3-trans',this)">Copy</button>
+      </div>
+      <div class="pcard__body">
+        <div class="prompt-text" id="c3-trans">Camera completely locked, straight-on at the vault door.
+
+0:00–0:01 — Vault cold and sealed. Utility light hums. Nothing moves.
+0:01–0:02 — Orange light bleeds through the seams around the door. The utility light flickers. Hairline cracks form in the concrete around the frame.
+0:02–0:03 — The door bows outward from pressure. The circular lock glows red-hot. Concrete chunks blow off the wall. The seams become blinding orange-white. The door is about to fail.
+0:03–0:04 — INSTANT. Door blasts off in one frame — spinning toward camera in slow-motion. Behind it: white furnace interior and a cascade of burning file cards erupting outward. Shockwave distorts the air.
+0:04–0:05 — Door drifts, still spinning and glowing. Files burn and fall. Fire pours from the open vault. Smoke fills the frame. Held still. Destroyed.
+
+5 seconds. The door must feel heavy — real steel mass when it blows. Files tumble with paper physics.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- ═══════════════════════════════════════════════════════
+     CONCEPT 4 — CHAIN REACTION
+═══════════════════════════════════════════════════════ -->
+<div class="concept">
+  <div class="concept__title-bar">
+    <span class="concept__number">CONCEPT 04</span>
+    <h2 class="concept__name">Chain Reaction</h2>
+    <span class="concept__vibe">Files im Grid schwebend → eine zündet → alle brennen</span>
+  </div>
+
+  <div class="base-block">
+    <div class="base-block__head">
+      <span class="base-badge"><span class="base-badge__dot"></span>Shared Base — identisch in Start &amp; End Frame</span>
+      <span class="base-block__note">Diesen Teil in beiden Prompts verwenden</span>
+    </div>
+    <div class="base-block__body">
+      <div class="base-text" id="c4-base">Hundreds of identical black audio sample file cards — each rectangular, labeled individually: 808 RUMBLE, SNARE CRACK, OPEN HAT, KICK DEEP, CLAP 01, PERC ROLL — suspended in a perfect grid formation in empty black space. They are arranged in 10 rows and 12 columns, each card facing forward toward the camera. The cards are evenly spaced, all perfectly parallel. Camera angle: straight-on frontal, 50mm lens, centered on the grid, the full grid filling the frame with a small dark margin on all sides. A cold even white light from directly in front illuminates all cards equally — no shadows, flat frontal lighting. Background is absolute black.
+
+Photorealistic studio photography, 50mm frontal lens, hundreds of floating black cards in a perfect grid formation, white label text on each card, flat frontal cold light, absolute black background, zero depth of field variation, 8K ultra-detail. --ar 16:9 --seed 4400</div>
+    </div>
+  </div>
+
+  <div class="prompt-grid">
+
+    <div class="pcard">
+      <div class="pcard__head">
+        <span class="pcard__badge pcard__badge--start"><span class="pcard__dot"></span>Start Frame — State</span>
+        <button class="copy-all-btn" onclick="copyAll('c4-base','c4-start',this)">Copy Full Prompt</button>
+      </div>
+      <div class="pcard__body">
+        <p class="state-label">Nur dieser Teil ändert sich ↓</p>
+        <div class="prompt-text" id="c4-start">STATE: Every single card is completely intact, dark and unburned. All cards are perfectly still. No fire, no movement, no heat. The grid is flawless and ordered. Complete cold stillness.</div>
+      </div>
+    </div>
+
+    <div class="arrow">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <span>→</span>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard__head">
+        <span class="pcard__badge pcard__badge--end"><span class="pcard__dot"></span>End Frame — State</span>
+        <button class="copy-all-btn" onclick="copyAll('c4-base','c4-end',this)">Copy Full Prompt</button>
+      </div>
+      <div class="pcard__body">
+        <p class="state-label">Nur dieser Teil ändert sich ↓</p>
+        <div class="prompt-text" id="c4-end">STATE: Every single card is on fire simultaneously. The perfect grid formation has dissolved — all cards are tumbling, spinning and drifting in random directions while burning. Each card has a unique fire state: some fully engulfed, some burning at the edges only, some half-consumed as ash. The black background is now filled with hundreds of individual fire sources at different depths. Burning card fragments and ash float between them. The overall image looks like a constellation of individual fires in black space. Same frontal camera angle — but where the ordered grid was, there is now pure burning chaos.</div>
+      </div>
+    </div>
+
+    <div class="pcard pcard--full">
+      <div class="pcard__head">
+        <span class="pcard__badge pcard__badge--trans"><span class="pcard__dot"></span>Transition Prompt</span>
+        <button class="copy-btn" onclick="copy('c4-trans',this)">Copy</button>
+      </div>
+      <div class="pcard__body">
+        <div class="prompt-text" id="c4-trans">Camera locked, frontal on the card grid. No movement.
+
+0:00–0:01 — All cards perfectly still. Cold, ordered, silent. Grid flawless.
+0:01–0:02 — A single card in the top-left corner develops a tiny flame at one corner edge. Just that one card. Everything else remains dark and still.
+0:02–0:03 — The fire jumps from that card to its immediate neighbors. Then to their neighbors. A chain reaction wave of fire travels diagonally across the entire grid — visible card by card, like falling dominoes — from the top-left to the bottom-right. Cards that ignite begin to vibrate and loosen from the formation.
+0:03–0:04 — The chain reaction wave hits the last card. In the same instant, every card in the grid erupts simultaneously. The perfect formation explodes into chaos — all cards scatter in every direction, all burning.
+0:04–0:05 — Cards drift freely burning in black space. A universe of fire points. Ash between them. Held still. Hypnotic and overwhelming.
+
+5 seconds. Chain reaction must be visible as a wave — card by card progression before the simultaneous ignition. Paper fire physics: edges burn first, then inward.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- ═══════════════════════════════════════════════════════
+     CONCEPT 5 — STUDIO STRIKE
+═══════════════════════════════════════════════════════ -->
+<div class="concept">
+  <div class="concept__title-bar">
+    <span class="concept__number">CONCEPT 05</span>
+    <h2 class="concept__name">Studio Strike</h2>
+    <span class="concept__vibe">Ruhe im Studio → Blitz trifft Box → Files und Feuer überall</span>
+  </div>
+
+  <div class="base-block">
+    <div class="base-block__head">
+      <span class="base-badge"><span class="base-badge__dot"></span>Shared Base — identisch in Start &amp; End Frame</span>
+      <span class="base-block__note">Diesen Teil in beiden Prompts verwenden</span>
+    </div>
+    <div class="base-block__body">
+      <div class="base-text" id="c5-base">A dark music producer studio desk viewed from a slightly elevated 3/4 angle, 35mm lens. The desk surface is matte black. The Flames Bounce Kit product box — jet black, "FLAMES BOUNCE KIT" embossed in orange, "stxrm808" in white — sits dead center on the desk. To the left edge: a dark keyboard, partially visible. In the background: a large studio monitor speaker, dark and off. A hanging pendant light directly above the box illuminates only the box and a tight circle of desk around it — everything else is in shadow. The ceiling above the pendant light is dark concrete. Camera is fixed at a 35-degree elevated angle looking down at the desk.
+
+Photorealistic cinematic photography, 35mm lens, slightly elevated 3/4 angle looking down at the desk, the box as the sole lit object under pendant light, keyboard at left edge in shadow, studio monitor in dark background, dark concrete ceiling, color grade: warm amber pendant light pool on the box, near-black everything else, 8K. --ar 16:9 --seed 4400</div>
+    </div>
+  </div>
+
+  <div class="prompt-grid">
+
+    <div class="pcard">
+      <div class="pcard__head">
+        <span class="pcard__badge pcard__badge--start"><span class="pcard__dot"></span>Start Frame — State</span>
+        <button class="copy-all-btn" onclick="copyAll('c5-base','c5-start',this)">Copy Full Prompt</button>
+      </div>
+      <div class="pcard__body">
+        <p class="state-label">Nur dieser Teil ändert sich ↓</p>
+        <div class="prompt-text" id="c5-start">STATE: The box is perfectly sealed and intact on the desk under the pendant light. No damage, no fire. The pendant light glows warm amber. The studio monitor in the background is off. The keyboard is undisturbed. Everything is still and calm. A producer's studio at rest.</div>
+      </div>
+    </div>
+
+    <div class="arrow">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <span>→</span>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard__head">
+        <span class="pcard__badge pcard__badge--end"><span class="pcard__dot"></span>End Frame — State</span>
+        <button class="copy-all-btn" onclick="copyAll('c5-base','c5-end',this)">Copy Full Prompt</button>
+      </div>
+      <div class="pcard__body">
+        <p class="state-label">Nur dieser Teil ändert sich ↓</p>
+        <div class="prompt-text" id="c5-end">STATE: A lightning bolt has struck through the concrete ceiling directly into the box — the ceiling has a scorched circular hole directly above where the pendant light was. The pendant light is destroyed, replaced by the lightning channel still glowing electric blue. The box is obliterated: a burning wreck at the center of the desk surrounded by hundreds of burning sample file cards blasted outward across the desk, pinned against the monitor, scattered on the keyboard, hanging in mid-air. The studio monitor screen is cracked and dark. The keyboard is on fire. The entire room is lit by the combination of orange fire from the files and box, and cold electric blue residual glow from the lightning channel above. Same camera angle — same desk, same positions, only everything is destroyed and burning.</div>
+      </div>
+    </div>
+
+    <div class="pcard pcard--full">
+      <div class="pcard__head">
+        <span class="pcard__badge pcard__badge--trans"><span class="pcard__dot"></span>Transition Prompt</span>
+        <button class="copy-btn" onclick="copy('c5-trans',this)">Copy</button>
+      </div>
+      <div class="pcard__body">
+        <div class="prompt-text" id="c5-trans">Camera locked at elevated 3/4 angle on the desk. No camera movement.
+
+0:00–0:01 — Studio still and calm. Box sealed under pendant light. Monitor and keyboard in shadow. Quiet hum of studio equipment.
+0:01–0:02 — The pendant light flickers. The monitor screen glitches white for a frame. The box emits a faint electric buzz. Dust particles above the desk are attracted upward. The ceiling above develops a faint glow.
+0:02–0:03 — The ceiling crack spreads rapidly. The concrete above the box glows from behind. The air fills with static electricity — hair-raising tension. A pre-flash whites out the ceiling for a frame. Everything braces.
+0:03–0:04 — STRIKE. A lightning bolt fires through the ceiling into the box in one instantaneous frame. The box detonates. Files blast outward in every direction — a pressure wave visible as a ring. Fire ignites everywhere simultaneously. The monitor cracks. The keyboard sparks. The pendant light explodes.
+0:04–0:05 — Lightning fades. Fire remains. Files burn across every surface. Blue glow from the ceiling hole mixes with orange fire. Still, cinematic, the studio is destroyed.
+
+5 seconds. Lightning must be single-frame — instant, no approach. File scatter follows a pressure wave outward from center.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── Higgsfield Settings ── -->
+<div class="settings">
+  <div><p class="settings__label">Higgsfield Einstellungen</p></div>
+  <div class="settings__item"><p class="settings__label">Mode</p><p class="settings__val">Start + End Frame</p></div>
+  <div class="settings__item"><p class="settings__label">Duration</p><p class="settings__val">5 sec</p></div>
+  <div class="settings__item"><p class="settings__label">Motion</p><p class="settings__val">High</p></div>
+  <div class="settings__item"><p class="settings__label">Camera</p><p class="settings__val">Locked / Static</p></div>
+  <div class="settings__item"><p class="settings__label">Aspect Ratio</p><p class="settings__val">16 : 9</p></div>
+  <div class="settings__item"><p class="settings__label">Tipp</p><p class="settings__val">--seed 4400 in beiden Midjourney-Prompts</p></div>
+</div>
+
+<script>
+  function copy(id, btn) {
+    const text = document.getElementById(id).innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.classList.add('copied');
+      const orig = btn.textContent;
+      btn.textContent = 'Copied ✓';
+      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = orig; }, 2000);
+    });
+  }
+
+  function copyAll(baseId, stateId, btn) {
+    const base  = document.getElementById(baseId).innerText.trim();
+    const state = document.getElementById(stateId).innerText.trim();
+    const full  = base + '\n\n' + state;
+    navigator.clipboard.writeText(full).then(() => {
+      btn.classList.add('copied');
+      btn.textContent = 'Copied ✓';
+      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = 'Copy Full Prompt'; }, 2000);
+    });
+  }
+</script>
+
+</body>
+</html>

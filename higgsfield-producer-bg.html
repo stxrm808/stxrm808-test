@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Higgsfield Prompts — Producer Section Background</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --fire:   #FF4400;
+      --amber:  #E8A020;
+      --bg:     #080808;
+      --card:   #0f0f0f;
+      --card2:  #141414;
+      --border: #1e1e1e;
+      --hot:    rgba(255,68,0,0.2);
+      --text:   #e8e8e8;
+      --muted:  rgba(255,255,255,0.38);
+      --green:  #22d46a;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      min-height: 100vh;
+      padding: 3rem 1.5rem 8rem;
+    }
+
+    /* ── Header ── */
+    .header {
+      max-width: 900px;
+      margin: 0 auto 3.5rem;
+      text-align: center;
+    }
+    .header__eyebrow {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--fire);
+      margin-bottom: 1rem;
+    }
+    .header__title {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .header__title em { color: var(--fire); font-style: normal; }
+    .header__sub {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* ── Settings bar ── */
+    .settings {
+      max-width: 900px;
+      margin: 0 auto 3rem;
+      background: var(--card);
+      border: 1px solid rgba(255,68,0,0.2);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+    }
+    .setting {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .setting__label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .setting__val {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--amber);
+    }
+
+    /* ── Goal block ── */
+    .goal {
+      max-width: 900px;
+      margin: 0 auto 3rem;
+      background: var(--card);
+      border: 1px solid rgba(34,212,106,0.25);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+    }
+    .goal__label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 0.5rem;
+    }
+    .goal__text {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      max-width: 900px;
+      margin: 0 auto 1.25rem;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── Concept card ── */
+    .concept {
+      max-width: 900px;
+      margin: 0 auto 2rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: border-color 0.25s;
+    }
+    .concept:hover { border-color: rgba(255,68,0,0.3); }
+
+    .concept__head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.1rem 1.4rem;
+      background: var(--card2);
+      border-bottom: 1px solid var(--border);
+    }
+    .concept__meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .concept__num {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: var(--hot);
+      border: 1px solid rgba(255,68,0,0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--fire);
+      flex-shrink: 0;
+    }
+    .concept__title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .concept__vibe {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--amber);
+      background: rgba(232,160,32,0.1);
+      border: 1px solid rgba(232,160,32,0.2);
+      padding: 2px 10px;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+
+    .concept__body { padding: 1.4rem; display: flex; flex-direction: column; gap: 1.1rem; }
+
+    .prompt-block { display: flex; flex-direction: column; gap: 0.5rem; }
+    .prompt-block__label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .prompt-block__text {
+      background: #0a0a0a;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.1rem;
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: #d0d0d0;
+      font-family: 'Space Grotesk', monospace;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .prompt-block__text em { color: var(--fire); font-style: normal; }
+
+    .prompt-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .btn-copy {
+      padding: 7px 18px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: var(--hot);
+      color: var(--fire);
+      border: 1px solid rgba(255,68,0,0.35);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-copy:hover { background: rgba(255,68,0,0.3); color: #fff; }
+    .btn-copy.copied { background: rgba(34,212,106,0.15); color: var(--green); border-color: rgba(34,212,106,0.3); }
+
+    .concept__tip {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.6;
+      padding: 0.75rem 1rem;
+      border-left: 2px solid rgba(255,68,0,0.3);
+      background: rgba(255,68,0,0.04);
+      border-radius: 0 6px 6px 0;
+    }
+    .concept__tip strong { color: var(--amber); }
+
+    /* ── Integration block ── */
+    .integration {
+      max-width: 900px;
+      margin: 3rem auto 0;
+      background: var(--card);
+      border: 1px solid rgba(34,212,106,0.2);
+      border-radius: 14px;
+      padding: 2rem;
+    }
+    .integration h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--green);
+    }
+    .integration ol {
+      padding-left: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .integration li { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+    .integration li strong { color: var(--text); }
+    .code-block {
+      background: #0a0a0a;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.2rem;
+      margin-top: 1.2rem;
+      font-size: 0.82rem;
+      color: #a8e6a3;
+      line-height: 1.7;
+      white-space: pre;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <p class="header__eyebrow">Higgsfield AI · Producer Section</p>
+    <h1 class="header__title">Background Video<br/><em>Prompts</em></h1>
+    <p class="header__sub">
+      Generate a looping background video for the "Producers Don't Lie" section.
+      Paste one of these into Higgsfield, export as MP4, drop it in <code style="color:var(--amber)">/assets/</code>.
+    </p>
+  </div>
+
+  <!-- Recommended settings -->
+  <div class="settings">
+    <div class="setting">
+      <span class="setting__label">Platform</span>
+      <span class="setting__val">Higgsfield AI</span>
+    </div>
+    <div class="setting">
+      <span class="setting__label">Duration</span>
+      <span class="setting__val">4–6 sec (loops best)</span>
+    </div>
+    <div class="setting">
+      <span class="setting__label">Aspect Ratio</span>
+      <span class="setting__val">16:9 (landscape)</span>
+    </div>
+    <div class="setting">
+      <span class="setting__label">Resolution</span>
+      <span class="setting__val">1920×1080 or higher</span>
+    </div>
+    <div class="setting">
+      <span class="setting__label">Motion</span>
+      <span class="setting__val">Slow / Subtle</span>
+    </div>
+    <div class="setting">
+      <span class="setting__label">File name</span>
+      <span class="setting__val">producer-bg.mp4</span>
+    </div>
+  </div>
+
+  <!-- Goal -->
+  <div class="goal">
+    <p class="goal__label">What this video does on the site</p>
+    <p class="goal__text">
+      Plays as a full-bleed background behind the two producer cards — muted, looping, at ~15% opacity.
+      Should feel like heat and atmosphere, not distraction. Dark, fiery, cinematic.
+      The beat cards sit on top.
+    </p>
+  </div>
+
+  <!-- Concepts -->
+  <p class="section-label">5 Prompt Concepts — Pick One</p>
+
+  <!-- 1 -->
+  <div class="concept">
+    <div class="concept__head">
+      <div class="concept__meta">
+        <div class="concept__num">1</div>
+        <span class="concept__title">Ember Drift</span>
+      </div>
+      <span class="concept__vibe">Minimal · Best Loop</span>
+    </div>
+    <div class="concept__body">
+      <div class="prompt-block">
+        <span class="prompt-block__label">Prompt</span>
+        <div class="prompt-block__text" id="p1">Slow motion glowing embers and fire particles drifting upward against a pure black background. Deep orange and amber tones. Macro lens, cinematic depth of field. No objects, no people, no text. Seamless loop-friendly motion. Dark, minimal, hypnotic.</div>
+      </div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copy('p1',this)">Copy Prompt</button>
+      </div>
+      <p class="concept__tip">
+        <strong>Why this works:</strong> Pure black bg = easy to overlay on the site. Embers drift upward slowly — perfect for a seamless loop. Zero distraction, maximum atmosphere.
+      </p>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="concept">
+    <div class="concept__head">
+      <div class="concept__meta">
+        <div class="concept__num">2</div>
+        <span class="concept__title">Studio Heat</span>
+      </div>
+      <span class="concept__vibe">Cinematic · Most Story</span>
+    </div>
+    <div class="concept__body">
+      <div class="prompt-block">
+        <span class="prompt-block__label">Prompt</span>
+        <div class="prompt-block__text" id="p2">Extreme close-up of a dark studio mixing board, amber and orange fire reflecting off the faders and knobs. Soft smoke rising. Dramatic side lighting. Deep blacks. Film grain, anamorphic lens flare. Ultra slow motion. Cinematic, moody, dangerous feeling.</div>
+      </div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copy('p2',this)">Copy Prompt</button>
+      </div>
+      <p class="concept__tip">
+        <strong>Why this works:</strong> Connects directly to music production — producers will recognize it. The dark studio vibe matches the site perfectly.
+      </p>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="concept">
+    <div class="concept__head">
+      <div class="concept__meta">
+        <div class="concept__num">3</div>
+        <span class="concept__title">Fire Wave</span>
+      </div>
+      <span class="concept__vibe">Abstract · Most Visual</span>
+    </div>
+    <div class="concept__body">
+      <div class="prompt-block">
+        <span class="prompt-block__label">Prompt</span>
+        <div class="prompt-block__text" id="p3">Abstract heat distortion waves rippling upward, deep orange and amber flame textures morphing slowly. No objects, no people. Photorealistic fire surface, ultra close-up, flowing organic motion. Black background, high contrast. Slow breathing movement, seamless loop.</div>
+      </div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copy('p3',this)">Copy Prompt</button>
+      </div>
+      <p class="concept__tip">
+        <strong>Why this works:</strong> Fully abstract — no specific objects means it ages well and never looks dated. The heat waves add energy without being loud.
+      </p>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="concept">
+    <div class="concept__head">
+      <div class="concept__meta">
+        <div class="concept__num">4</div>
+        <span class="concept__title">808 Glow</span>
+      </div>
+      <span class="concept__vibe">On-Brand · Most Specific</span>
+    </div>
+    <div class="concept__body">
+      <div class="prompt-block">
+        <span class="prompt-block__label">Prompt</span>
+        <div class="prompt-block__text" id="p4">Close-up of an 808 drum machine in a dark room, orange fire light casting dramatic shadows across the pads and buttons. Ember particles floating around it. Smoke curling upward. Ultra slow motion, cinematic. Black background with deep amber highlights. No text. High contrast, film grain.</div>
+      </div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copy('p4',this)">Copy Prompt</button>
+      </div>
+      <p class="concept__tip">
+        <strong>Why this works:</strong> 808 directly references the brand name stxrm808. Most on-point concept — instantly tells visitors what this is about.
+      </p>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="concept">
+    <div class="concept__head">
+      <div class="concept__meta">
+        <div class="concept__num">5</div>
+        <span class="concept__title">Lab at 3AM</span>
+      </div>
+      <span class="concept__vibe">Atmospheric · Most Mood</span>
+    </div>
+    <div class="concept__body">
+      <div class="prompt-block">
+        <span class="prompt-block__label">Prompt</span>
+        <div class="prompt-block__text" id="p5">A dark music production studio at night. The only light is the orange glow of a monitor and scattered fire embers drifting through the air. Smoke, darkness, warmth. Ultra wide angle, extreme depth of field. No people visible. Cinematic, moody, late night energy. Slow breathing camera movement.</div>
+      </div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copy('p5',this)">Copy Prompt</button>
+      </div>
+      <p class="concept__tip">
+        <strong>Why this works:</strong> Matches the identity copy — "producer in the lab at 3am". The emotional connection is strong. Wide angle = fills the background perfectly.
+      </p>
+    </div>
+  </div>
+
+  <!-- Integration guide -->
+  <div class="integration">
+    <h2>How to put it on the site</h2>
+    <ol>
+      <li>Generate the video in Higgsfield, export as <strong>MP4</strong></li>
+      <li>Rename it to <strong>producer-bg.mp4</strong> and drop it in <strong>/site/assets/</strong></li>
+      <li>Tell Claude Code: <strong>"bau das producer-bg.mp4 als hintergrund in die producer section ein"</strong> — wird direkt eingebaut</li>
+    </ol>
+    <div class="code-block">&lt;!-- Was eingebaut wird: --&gt;
+&lt;video class="fp-section__bg"
+       src="assets/producer-bg.mp4"
+       autoplay muted loop playsinline&gt;
+&lt;/video&gt;
+
+/* CSS: hinter den cards, 15% opacity */
+.fp-section__bg {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0.15;
+  pointer-events: none;
+}</div>
+  </div>
+
+  <script>
+    function copy(id, btn) {
+      const text = document.getElementById(id).textContent.trim();
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'Copied ✓';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy Prompt';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>

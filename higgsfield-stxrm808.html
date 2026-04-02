@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Higgsfield Prompts — stxrm808</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --fire:   #FF4400;
+      --amber:  #E8A020;
+      --bg:     #080808;
+      --card:   #101010;
+      --border: #1e1e1e;
+      --text:   #e8e8e8;
+      --muted:  rgba(255,255,255,0.38);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      min-height: 100vh;
+      padding: 3rem 1.5rem 6rem;
+    }
+
+    /* ── Header ─────────────────────────────────────────── */
+    .header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    .header__tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--fire);
+      margin-bottom: 0.8rem;
+    }
+    .header__title {
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .header__title span { color: var(--fire); }
+    .header__sub {
+      margin-top: 0.6rem;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    /* ── Concept wrapper ─────────────────────────────────── */
+    .concept {
+      max-width: 1200px;
+      margin: 0 auto 5rem;
+    }
+    .concept__title-bar {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .concept__number {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      color: var(--fire);
+      background: rgba(255,68,0,0.1);
+      border: 1px solid rgba(255,68,0,0.25);
+      padding: 0.25rem 0.7rem;
+      border-radius: 99px;
+    }
+    .concept__name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .concept__vibe {
+      margin-left: auto;
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      font-style: italic;
+    }
+
+    /* ── Three-column prompt grid ────────────────────────── */
+    .prompt-grid {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      gap: 1rem;
+      align-items: start;
+    }
+
+    .arrow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-top: 3.2rem;
+      gap: 0.3rem;
+      color: var(--amber);
+      opacity: 0.5;
+    }
+    .arrow svg { width: 18px; height: 18px; }
+    .arrow span {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    /* ── Prompt card ─────────────────────────────────────── */
+    .pcard {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .pcard__head {
+      padding: 1rem 1.25rem 0.8rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+    .pcard__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.65rem;
+      border-radius: 99px;
+    }
+    .pcard__badge--start {
+      background: rgba(0,210,80,0.1);
+      color: #00d450;
+      border: 1px solid rgba(0,210,80,0.25);
+    }
+    .pcard__badge--end {
+      background: rgba(255,68,0,0.1);
+      color: var(--fire);
+      border: 1px solid rgba(255,68,0,0.28);
+    }
+    .pcard__badge--transition {
+      background: rgba(232,160,32,0.1);
+      color: var(--amber);
+      border: 1px solid rgba(232,160,32,0.28);
+    }
+    .pcard__dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .pcard__badge--start    .pcard__dot { background: #00d450; }
+    .pcard__badge--end      .pcard__dot { background: var(--fire); }
+    .pcard__badge--transition .pcard__dot { background: var(--amber); }
+
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: #181818;
+      border: 1px solid #282828;
+      color: var(--muted);
+      font-family: inherit;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.75rem;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .copy-btn:hover { background: #202020; color: #fff; border-color: var(--amber); }
+    .copy-btn.copied { background: rgba(0,180,80,0.12); color: #00d450; border-color: rgba(0,210,80,0.3); }
+
+    .pcard__body { padding: 1.1rem 1.25rem 1.25rem; }
+
+    .prompt-text {
+      background: #0a0a0a;
+      border: 1px solid #191919;
+      border-radius: 8px;
+      padding: 1rem 1.1rem;
+      font-size: 0.8rem;
+      line-height: 1.78;
+      color: rgba(255,255,255,0.75);
+      white-space: pre-wrap;
+      word-break: break-word;
+      user-select: all;
+      cursor: text;
+      min-height: 180px;
+    }
+
+    /* Transition card is full-width */
+    .pcard--full {
+      grid-column: 1 / -1;
+      margin-top: 0.5rem;
+    }
+    .pcard--full .prompt-text { min-height: auto; }
+
+    /* ── Settings row ────────────────────────────────────── */
+    .settings {
+      max-width: 1200px;
+      margin: -3rem auto 0;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 2rem;
+      align-items: center;
+    }
+    .settings__item {}
+    .settings__label { font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+    .settings__val   { font-size: 0.85rem; font-weight: 600; color: var(--amber); }
+
+    /* ── Divider ─────────────────────────────────────────── */
+    .divider {
+      max-width: 1200px;
+      margin: 0 auto 3.5rem;
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 900px) {
+      .prompt-grid { grid-template-columns: 1fr; }
+      .arrow { flex-direction: row; padding-top: 0; }
+      .pcard--full { grid-column: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <p class="header__tag">stxrm808 × Higgsfield AI</p>
+    <h1 class="header__title">Animation <span>Prompts</span></h1>
+    <p class="header__sub">3 Konzepte — Start Frame → End Frame → Transition. Alle copy-pasteable.</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       CONCEPT 1 — THE 808 IGNITES
+  ═══════════════════════════════════════════════════════ -->
+  <div class="concept">
+    <div class="concept__title-bar">
+      <span class="concept__number">CONCEPT 01</span>
+      <h2 class="concept__name">The 808 Ignites</h2>
+      <span class="concept__vibe">drum machine → fire explosion</span>
+    </div>
+
+    <div class="prompt-grid">
+
+      <!-- START -->
+      <div class="pcard">
+        <div class="pcard__head">
+          <span class="pcard__badge pcard__badge--start"><span class="pcard__dot"></span>Start Frame</span>
+          <button class="copy-btn" onclick="copy('c1-start',this)">Copy</button>
+        </div>
+        <div class="pcard__body">
+          <div class="prompt-text" id="c1-start">A classic Roland TR-808 drum machine sitting alone on a dark concrete surface. The machine is switched off — no LEDs, no lights, completely dead. Matte black housing with faded silver knobs and buttons. The surface beneath it is wet, reflecting a faint cold blue-grey ambient light from somewhere off-frame. The background is pure black. No fire, no smoke, no energy. Complete stillness and silence frozen in time.
+
+Cinematic photography, 35mm lens, f/2.0, ultra-detailed product shot, moody cold lighting, wet surface reflections, photorealistic 8K render, dark industrial aesthetic, color grade: cold desaturated blue-grey.</div>
+        </div>
+      </div>
+
+      <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>scroll</span></div>
+
+      <!-- END -->
+      <div class="pcard">
+        <div class="pcard__head">
+          <span class="pcard__badge pcard__badge--end"><span class="pcard__dot"></span>End Frame</span>
+          <button class="copy-btn" onclick="copy('c1-end',this)">Copy</button>
+        </div>
+        <div class="pcard__body">
+          <div class="prompt-text" id="c1-end">The exact same Roland TR-808 drum machine, same camera angle and framing — but now every single drum pad button is glowing molten orange-red and erupting with fire. Massive flames shoot upward from the machine reaching 60cm above it. The knobs glow white-hot. The housing is cracking and blistering from the heat. The wet concrete surface beneath it reflects the fire in deep orange. Sparks and embers cascade outward in all directions. Thick black smoke churns upward filling the top of the frame.
+
+Same 35mm lens, same composition, photorealistic fire and heat simulation, ultra-detailed ember particles, volumetric smoke, molten surface details, cinematic fire lighting casting harsh orange shadows on the ground, color grade: extreme warm orange-red dominant, near-black shadows. 8K.</div>
+        </div>
+      </div>
+
+      <!-- TRANSITION — full width -->
+      <div class="pcard pcard--full">
+        <div class="pcard__head">
+          <span class="pcard__badge pcard__badge--transition"><span class="pcard__dot"></span>Transition Prompt</span>
+          <button class="copy-btn" onclick="copy('c1-trans',this)">Copy</button>
+        </div>
+        <div class="pcard__body">
+          <div class="prompt-text" id="c1-trans">Camera locked, static. No movement whatsoever — only the 808 transforms.
+
+0:00–0:01 — Completely still. The machine is dead and dark. Cold silence.
+0:01–0:02 — The first drum pad button glows faint red, then a second. A low sub-frequency vibration begins. The machine starts to tremor slightly against the concrete.
+0:02–0:03 — Multiple pads ignite simultaneously. Small flames flicker from the buttons. The knobs begin glowing. The machine rattles violently against the surface. Orange light bleeds across the wet concrete.
+0:03–0:04 — Full eruption. Every button is on fire. A massive flame column erupts upward. Sparks fly. The housing starts warping and melting. Smoke fills the upper frame.
+0:04–0:05 — Total burn. The 808 is an inferno. Embers cascade. The ground reflects pure fire. The last frame holds still — the machine consumed, glowing, destroyed.
+
+Motion style: starts completely inert, then ignites with increasing speed. Fire must feel physically real — turbulent, volumetric, temperature-accurate (white-hot core, orange mid, dark red edges). 5 seconds total.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- ═══════════════════════════════════════════════════════
+       CONCEPT 2 — STORM BREAKS
+  ═══════════════════════════════════════════════════════ -->
+  <div class="concept">
+    <div class="concept__title-bar">
+      <span class="concept__number">CONCEPT 02</span>
+      <h2 class="concept__name">Storm Breaks</h2>
+      <span class="concept__vibe">dark cityscape → lightning strike + fire</span>
+    </div>
+
+    <div class="prompt-grid">
+
+      <!-- START -->
+      <div class="pcard">
+        <div class="pcard__head">
+          <span class="pcard__badge pcard__badge--start"><span class="pcard__dot"></span>Start Frame</span>
+          <button class="copy-btn" onclick="copy('c2-start',this)">Copy</button>
+        </div>
+        <div class="pcard__body">
+          <div class="prompt-text" id="c2-start">A dark rainy city at night, shot from street level looking up at the skyline. The sky is heavy with massive storm clouds, deep charcoal grey and near-black. No lightning yet — just the pressure of a storm about to break. Rain falls in long silver streaks caught by distant streetlights. The wet asphalt reflects city lights in blurred orange and white pools. Everything is tense, waiting, silent between thunderclaps.
+
+Cinematic wide-angle lens, dramatic low-angle perspective, photorealistic storm atmosphere, moody cold city lighting, rain streaks visible, wet reflective surfaces, color grade: dark desaturated blue-grey with faint orange streetlight warmth, 8K, atmospheric depth of field.</div>
+        </div>
+      </div>
+
+      <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>scroll</span></div>
+
+      <!-- END -->
+      <div class="pcard">
+        <div class="pcard__head">
+          <span class="pcard__badge pcard__badge--end"><span class="pcard__dot"></span>End Frame</span>
+          <button class="copy-btn" onclick="copy('c2-end',this)">Copy</button>
+        </div>
+        <div class="pcard__body">
+          <div class="prompt-text" id="c2-end">Same city, same camera angle — but a catastrophic lightning bolt has struck the center of the frame with a direct ground strike. A massive branching white-blue lightning arc splits the sky from top to bottom. Where it hit the street, a circle of fire and molten asphalt radiates outward. Secondary fires burn on multiple buildings. The storm clouds above are lit from within by continuous lightning flashes in electric blue and white. Rain evaporates into steam near the fire. The entire sky pulses orange and blue simultaneously.
+
+Same wide-angle composition, photorealistic lightning and fire simulation, volumetric steam and smoke, arc channel visible in the air, shockwave ring on the wet asphalt, color grade: electric blue-white lightning clashing with deep orange fire, dramatic contrast, 8K.</div>
+        </div>
+      </div>
+
+      <!-- TRANSITION -->
+      <div class="pcard pcard--full">
+        <div class="pcard__head">
+          <span class="pcard__badge pcard__badge--transition"><span class="pcard__dot"></span>Transition Prompt</span>
+          <button class="copy-btn" onclick="copy('c2-trans',this)">Copy</button>
+        </div>
+        <div class="pcard__body">
+          <div class="prompt-text" id="c2-trans">Camera completely still and locked. No pan, no zoom, no movement.
+
+0:00–0:01 — Heavy rain, dark sky. Complete silence before the storm. Pressure building. A distant rumble.
+0:01–0:02 — The clouds begin to churn and rotate. The rain intensifies to a downpour. The city lights flicker. Wind bends the rain sideways. The sky flashes white once in the distance.
+0:02–0:03 — A massive lightning bolt begins forming from cloud to ground — the strike channel lights up blue-white, branching, growing downward toward the street. The whole frame illuminates.
+0:03–0:04 — IMPACT. The full lightning strike hits with blinding white flash. A shockwave of fire and steam erupts from the contact point. The ground explodes outward. Secondary fires ignite immediately. Thunder physically distorts the air.
+0:04–0:05 — The aftermath holds: fires burning, steam rising, lightning still arcing in the sky, rain falling into flame. Orange and blue clash across the frame. Overwhelming. Inevitable.
+
+Motion: builds slow, strikes fast, holds on destruction. Lightning arc must feel physically accurate — branching, ultra-bright core, purple-blue corona. Fire expands naturally from the strike point. 5 seconds total.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- ═══════════════════════════════════════════════════════
+       CONCEPT 3 — THE DROP
+  ═══════════════════════════════════════════════════════ -->
+  <div class="concept">
+    <div class="concept__title-bar">
+      <span class="concept__number">CONCEPT 03</span>
+      <h2 class="concept__name">The Drop</h2>
+      <span class="concept__vibe">empty stage → pyro explosion on the beat</span>
+    </div>
+
+    <div class="prompt-grid">
+
+      <!-- START -->
+      <div class="pcard">
+        <div class="pcard__head">
+          <span class="pcard__badge pcard__badge--start"><span class="pcard__dot"></span>Start Frame</span>
+          <button class="copy-btn" onclick="copy('c3-start',this)">Copy</button>
+        </div>
+        <div class="pcard__body">
+          <div class="prompt-text" id="c3-start">A massive empty concert stage shot from the floor looking up. The stage is completely dark — just a single ice-cold spotlight piercing down onto an empty center stage. No performer, no crowd. Low-lying fog rolls slowly across the black stage floor. Industrial rigging and lighting rigs hang above in darkness. The venue beyond the stage is a void of black. The fog catches the single beam of light and glows faintly. Everything is on the edge of beginning.
+
+Cinematic photography, ultra-wide angle 14mm lens, dramatic upward perspective, photorealistic stage atmosphere, volumetric fog and light beam, deep black shadows, color grade: monochromatic cold near-black with single ice-white spotlight, 8K, theatrical lighting.</div>
+        </div>
+      </div>
+
+      <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>scroll</span></div>
+
+      <!-- END -->
+      <div class="pcard">
+        <div class="pcard__head">
+          <span class="pcard__badge pcard__badge--end"><span class="pcard__dot"></span>End Frame</span>
+          <button class="copy-btn" onclick="copy('c3-end',this)">Copy</button>
+        </div>
+        <div class="pcard__body">
+          <div class="prompt-text" id="c3-end">Same stage, same camera angle — but now in full pyrotechnic eruption. Six massive fire cannons across the front of the stage blast simultaneous columns of fire 10 meters into the air. The stage is flooded with blinding orange-white light. Thousands of gold sparks and confetti rain down from the rigging above. The entire venue is now visible — packed crowd with hands up, silhouetted against the fire. Stage smoke mixes with the pyro in massive billowing clouds lit deep orange. The rigging glows from the heat below.
+
+Same 14mm wide composition, photorealistic pyrotechnic fire simulation, crowd silhouettes, spark rain from above, volumetric smoke lit by fire, color grade: extreme warm orange-gold dominant, brilliant white fire cores, black silhouettes, cinematic concert photography. 8K.</div>
+        </div>
+      </div>
+
+      <!-- TRANSITION -->
+      <div class="pcard pcard--full">
+        <div class="pcard__head">
+          <span class="pcard__badge pcard__badge--transition"><span class="pcard__dot"></span>Transition Prompt</span>
+          <button class="copy-btn" onclick="copy('c3-trans',this)">Copy</button>
+        </div>
+        <div class="pcard__body">
+          <div class="prompt-text" id="c3-trans">Camera completely static and locked — wide angle, looking up at the stage.
+
+0:00–0:01 — Empty stage. One spotlight. Fog rolling slowly. Total silence and stillness. The crowd is invisible in the darkness. Anticipation is physical.
+0:01–0:02 — A deep sub-bass pulse makes the fog ripple. Additional lights click on one by one across the rigging — still no fire, just building electricity. The crowd begins to appear as silhouettes shifting in the dark.
+0:02–0:03 — The lights go red and begin strobing. The fog thickens rapidly. The crowd surges forward. Something is about to break. The stage vibrates.
+0:03–0:04 — THE DROP. All six pyro cannons fire simultaneously with a single massive BOOM. A wall of fire erupts across the entire stage front. Gold sparks rain from the rigging. The crowd goes insane — arms up, jumping. The whole venue illuminates orange in one frame.
+0:04–0:05 — The fire holds, sustaining. Spark rain continues falling. Smoke billows in orange clouds. The crowd and the fire coexist in pure chaos. The last frame is still — overwhelming heat and energy, frozen.
+
+Motion style: maximum contrast between silence and explosion. The beat drop at 0:03 must feel like a physical impact — instant, total, no warning. Pyro fire must feel real: high-velocity propulsion, white-hot core expanding to orange. 5 seconds total.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Higgsfield Settings ───────────────────────────── -->
+  <div class="settings" style="max-width:1200px;margin:0 auto 2rem;">
+    <div><p class="settings__label">Setting</p></div>
+    <div class="settings__item"><p class="settings__label">Mode</p><p class="settings__val">Start + End Frame</p></div>
+    <div class="settings__item"><p class="settings__label">Duration</p><p class="settings__val">5 sec</p></div>
+    <div class="settings__item"><p class="settings__label">Motion</p><p class="settings__val">High</p></div>
+    <div class="settings__item"><p class="settings__label">Camera</p><p class="settings__val">Locked / Static</p></div>
+    <div class="settings__item"><p class="settings__label">Aspect Ratio</p><p class="settings__val">16 : 9</p></div>
+    <div class="settings__item"><p class="settings__label">Frames zuerst mit</p><p class="settings__val">Midjourney v6 / Flux</p></div>
+  </div>
+
+  <script>
+    function copy(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        btn.classList.add('copied');
+        btn.textContent = 'Copied ✓';
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          btn.textContent = 'Copy';
+        }, 2000);
+      });
+    }
+  </script>
+
+</body>
+</html>

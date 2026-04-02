@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — stxrm808</title>
+  <meta name="description" content="Get in touch with stxrm808 — for support, licensing, partnerships, or general questions." />
+  <meta name="theme-color" content="#080808" />
+  <link rel="canonical" href="https://www.stxrm808.com/contact" />
+  <link rel="icon" href="assets/favicon.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo" aria-label="stxrm808 Home">
+        <span class="nav__logo-text">stxrm808<span class="nav__logo-accent">.</span></span>
+      </a>
+      <ul class="nav__links" role="list">
+        <li><a href="index.html#kits" class="nav__link">Kits</a></li>
+        <li><a href="index.html#demos" class="nav__link">Demos</a></li>
+        <li><a href="contact.html" class="nav__link" aria-current="page">Contact</a></li>
+      </ul>
+      <a href="index.html#kits" class="btn btn--nav">GET KITS →</a>
+      <button class="nav__burger" id="navBurger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__mobile" id="navMobile" aria-hidden="true">
+      <ul role="list">
+        <li><a href="index.html#kits" class="nav__mobile-link">Kits</a></li>
+        <li><a href="index.html#demos" class="nav__mobile-link">Demos</a></li>
+        <li><a href="contact.html" class="nav__mobile-link">Contact</a></li>
+      </ul>
+      <a href="index.html#kits" class="btn btn--primary nav__mobile-cta">GET KITS →</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="contact-hero">
+      <div class="container">
+        <p class="section-tag reveal-item">Get In Touch</p>
+        <h1 class="section-heading reveal-item" style="font-size: clamp(40px, 7vw, 80px);">Let's talk.</h1>
+        <p class="section-sub reveal-item">Support, partnerships, collaborations, or just to say what's good — we're here.</p>
+      </div>
+    </section>
+
+    <section class="contact-form-section">
+      <div class="container">
+        <div style="display: grid; grid-template-columns: 1fr; gap: 80px; max-width: 900px;">
+
+          <form class="contact-form reveal-item" action="#" method="post" aria-label="Contact form">
+            <!-- NOTE: Connect this form to your email service provider (e.g., Formspree, EmailJS, Netlify Forms) -->
+            <!-- Formspree: action="https://formspree.io/f/YOUR_ID" -->
+            <div class="form-group">
+              <label for="contactName" class="form-label">Name</label>
+              <input type="text" id="contactName" name="name" class="form-input" placeholder="Your name" required autocomplete="name" />
+            </div>
+            <div class="form-group">
+              <label for="contactEmail" class="form-label">Email</label>
+              <input type="email" id="contactEmail" name="email" class="form-input" placeholder="your@email.com" required autocomplete="email" />
+            </div>
+            <div class="form-group">
+              <label for="contactSubject" class="form-label">Subject</label>
+              <select id="contactSubject" name="subject" class="form-input" style="appearance: none; cursor: pointer;">
+                <option value="" disabled selected>Select a topic</option>
+                <option value="support">Technical Support</option>
+                <option value="sales">Purchase / Licensing</option>
+                <option value="partnership">Partnership / Collaboration</option>
+                <option value="press">Press / Media</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="contactMessage" class="form-label">Message</label>
+              <textarea id="contactMessage" name="message" class="form-textarea" placeholder="What's on your mind?" required></textarea>
+            </div>
+            <button type="submit" class="btn btn--primary">Send Message →</button>
+          </form>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__bottom" style="border-top: 1px solid var(--border); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+        <p class="footer__copy">&copy; 2026 stxrm808. All rights reserved.</p>
+        <a href="index.html" style="font-size: 13px; color: var(--text-muted);">← Back to Home</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.querySelector('.contact-form');
+      if (!form) return;
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const btn = form.querySelector('button[type="submit"]');
+        btn.textContent = 'Sent.';
+        btn.disabled = true;
+        btn.style.opacity = '0.6';
+        const msg = document.createElement('p');
+        msg.style.cssText = 'margin-top:16px;font-size:14px;color:var(--text-2);';
+        msg.textContent = 'Message received. We\'ll get back to you soon.';
+        form.appendChild(msg);
+      });
+    });
+  </script>
+</body>
+</html>

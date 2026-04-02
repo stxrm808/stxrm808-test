@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Higgsfield Prompts — Explosion Scroll Scrub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --fire:   #FF4400;
+      --amber:  #E8A020;
+      --bg:     #080808;
+      --card:   #0f0f0f;
+      --card2:  #141414;
+      --border: #1e1e1e;
+      --hot:    rgba(255,68,0,0.2);
+      --text:   #e8e8e8;
+      --muted:  rgba(255,255,255,0.38);
+      --green:  #22d46a;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      min-height: 100vh;
+      padding: 3rem 1.5rem 8rem;
+    }
+
+    /* ── Header ── */
+    .header {
+      max-width: 900px;
+      margin: 0 auto 3.5rem;
+      text-align: center;
+    }
+    .header__eyebrow {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--fire);
+      margin-bottom: 1rem;
+    }
+    .header__title {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .header__title em { color: var(--fire); font-style: normal; }
+    .header__sub {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    /* ── Settings bar ── */
+    .settings {
+      max-width: 900px;
+      margin: 0 auto 2rem;
+      background: var(--card);
+      border: 1px solid rgba(255,68,0,0.2);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+    .setting { display: flex; flex-direction: column; gap: 4px; }
+    .setting__label {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .setting__val { font-size: 0.95rem; font-weight: 600; color: var(--amber); }
+
+    /* ── Warning: Scroll-Scrub Requirements ── */
+    .scrub-req {
+      max-width: 900px;
+      margin: 0 auto 2rem;
+      background: rgba(255,68,0,0.05);
+      border: 1px solid rgba(255,68,0,0.3);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+    }
+    .scrub-req__label {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--fire); margin-bottom: 0.75rem;
+    }
+    .scrub-req__list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .scrub-req__list li {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+      padding-left: 1.2rem;
+      position: relative;
+    }
+    .scrub-req__list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--fire);
+      font-size: 0.75rem;
+    }
+    .scrub-req__list strong { color: var(--text); }
+
+    /* ── Goal block ── */
+    .goal {
+      max-width: 900px;
+      margin: 0 auto 3rem;
+      background: var(--card);
+      border: 1px solid rgba(34,212,106,0.25);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+    }
+    .goal__label {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--green); margin-bottom: 0.5rem;
+    }
+    .goal__text { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+
+    /* ── Section label ── */
+    .section-label {
+      max-width: 900px; margin: 0 auto 1.25rem;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--muted);
+    }
+
+    /* ── Concept card ── */
+    .concept {
+      max-width: 900px; margin: 0 auto 2rem;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; overflow: hidden; transition: border-color 0.25s;
+    }
+    .concept:hover { border-color: rgba(255,68,0,0.3); }
+
+    .concept__head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; padding: 1.1rem 1.4rem;
+      background: var(--card2); border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .concept__meta { display: flex; align-items: center; gap: 0.75rem; }
+    .concept__num {
+      width: 28px; height: 28px; border-radius: 6px;
+      background: var(--hot); border: 1px solid rgba(255,68,0,0.35);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 800; color: var(--fire); flex-shrink: 0;
+    }
+    .concept__title { font-size: 1rem; font-weight: 700; color: var(--text); }
+    .concept__vibe {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--amber);
+      background: rgba(232,160,32,0.1); border: 1px solid rgba(232,160,32,0.2);
+      padding: 2px 10px; border-radius: 3px; white-space: nowrap;
+    }
+    .concept__body { padding: 1.4rem; display: flex; flex-direction: column; gap: 1.1rem; }
+
+    .prompt-block { display: flex; flex-direction: column; gap: 0.5rem; }
+    .prompt-block__label {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .prompt-block__text {
+      background: #0a0a0a; border: 1px solid var(--border);
+      border-radius: 8px; padding: 1rem 1.1rem;
+      font-size: 0.88rem; line-height: 1.75; color: #d0d0d0;
+      white-space: pre-wrap; word-break: break-word;
+    }
+
+    .prompt-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .btn-copy {
+      padding: 7px 18px; font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; background: var(--hot); color: var(--fire);
+      border: 1px solid rgba(255,68,0,0.35); border-radius: 6px;
+      cursor: pointer; transition: background 0.2s, color 0.2s;
+    }
+    .btn-copy:hover { background: rgba(255,68,0,0.3); color: #fff; }
+    .btn-copy.copied { background: rgba(34,212,106,0.15); color: var(--green); border-color: rgba(34,212,106,0.3); }
+
+    .concept__tip {
+      font-size: 0.8rem; color: var(--muted); line-height: 1.6;
+      padding: 0.75rem 1rem; border-left: 2px solid rgba(255,68,0,0.3);
+      background: rgba(255,68,0,0.04); border-radius: 0 6px 6px 0;
+    }
+    .concept__tip strong { color: var(--amber); }
+
+    /* ── Integration block ── */
+    .integration {
+      max-width: 900px; margin: 3rem auto 0;
+      background: var(--card); border: 1px solid rgba(34,212,106,0.2);
+      border-radius: 14px; padding: 2rem;
+    }
+    .integration h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; color: var(--green); }
+    .integration ol { padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; }
+    .integration li { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+    .integration li strong { color: var(--text); }
+    .code-block {
+      background: #0a0a0a; border: 1px solid var(--border);
+      border-radius: 8px; padding: 1rem 1.2rem; margin-top: 1.2rem;
+      font-size: 0.82rem; color: #a8e6a3; line-height: 1.7;
+      white-space: pre; overflow-x: auto;
+    }
+
+    /* ── Progress diagram ── */
+    .progress-diagram {
+      max-width: 900px; margin: 0 auto 3rem;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.5rem;
+    }
+    .progress-diagram__label {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 1rem;
+    }
+    .progress-bar-wrap {
+      display: flex; align-items: center; gap: 0; margin-bottom: 0.75rem;
+    }
+    .progress-bar {
+      height: 6px; border-radius: 99px;
+      background: linear-gradient(to right, #1a1a1a, var(--amber), var(--fire), #fff6e0);
+      flex: 1;
+    }
+    .progress-labels {
+      display: flex; justify-content: space-between;
+      font-size: 0.7rem; color: var(--muted); margin-top: 0.5rem;
+    }
+    .progress-labels span:first-child { color: var(--text-2); }
+    .progress-labels span:last-child  { color: var(--fire); font-weight: 700; }
+    .progress-note {
+      font-size: 0.8rem; color: var(--muted); line-height: 1.6; margin-top: 0.75rem;
+    }
+    .progress-note strong { color: var(--amber); }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <p class="header__eyebrow">Higgsfield AI · Scroll Scrub — explosion.mp4</p>
+    <h1 class="header__title">Explosion<br/><em>Prompts</em></h1>
+    <p class="header__sub">
+      Prompts für das Scroll-Scrub Video — das Video das beim Scrollen frame-by-frame abgespielt wird.
+      Muss eine klare visuelle Progression von Anfang bis Ende haben.
+      Generiertes MP4 → rename zu <code style="color:var(--amber)">explosion.mp4</code> → in <code style="color:var(--amber)">/assets/</code>.
+    </p>
+  </div>
+
+  <!-- Settings -->
+  <div class="settings">
+    <div class="setting">
+      <span class="setting__label">Platform</span>
+      <span class="setting__val">Higgsfield AI</span>
+    </div>
+    <div class="setting">
+      <span class="setting__label">Duration</span>
+      <span class="setting__val">6–10 Sekunden</span>
+    </div>
+    <div class="setting">
+      <span class="setting__label">Aspect Ratio</span>
+      <span class="setting__val">16:9</span>
+    </div>
+    <div class="setting">
+      <span class="setting__label">Resolution</span>
+      <span class="setting__val">1920×1080+</span>
+    </div>
+    <div class="setting">
+      <span class="setting__label">Motion</span>
+      <span class="setting__val">Ultra Slow Motion</span>
+    </div>
+    <div class="setting">
+      <span class="setting__label">File name</span>
+      <span class="setting__val">explosion.mp4</span>
+    </div>
+  </div>
+
+  <!-- Scroll-scrub requirements -->
+  <div class="scrub-req">
+    <p class="scrub-req__label">Scroll-Scrub Requirements — wichtig</p>
+    <ul class="scrub-req__list">
+      <li><strong>Klare Progression:</strong> Jeder einzelne Frame muss gut aussehen — von 0% bis 100% durch.</li>
+      <li><strong>Kein Looping nötig:</strong> Das Video wird nicht geloopt — es wird frame-by-frame durch den Scroll gesteuert.</li>
+      <li><strong>Dunkler Hintergrund:</strong> Schwarz oder sehr dunkel — der Text-Overlay "THE STUDIO IS ON FIRE." liegt darüber.</li>
+      <li><strong>Keine Objektive Sprünge:</strong> Kamera bleibt statisch oder bewegt sich sehr langsam — keine Schnitte.</li>
+      <li><strong>Slow Motion bevorzugt:</strong> Je langsamer die Bewegung, desto smoother der Scroll-Scrub-Effekt.</li>
+    </ul>
+  </div>
+
+  <!-- Progress diagram -->
+  <div class="progress-diagram">
+    <p class="progress-diagram__label">Wie das Video visuell progressieren soll</p>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar"></div>
+    </div>
+    <div class="progress-labels">
+      <span>0% — Anfang (schwarz / ruhig)</span>
+      <span>50% — Aufbau</span>
+      <span>100% — Volle Explosion</span>
+    </div>
+    <p class="progress-note">
+      Der User scrollt durch das Video. <strong>Frame 1 = dunkles Bild.</strong>
+      Mitte = Feuer baut sich auf. <strong>Letzter Frame = volle Helligkeit, maximale Explosion.</strong>
+      So wirkt der Scroll wie ein Zünder.
+    </p>
+  </div>
+
+  <!-- Goal -->
+  <div class="goal">
+    <p class="goal__label">Was dieses Video auf der Seite macht</p>
+    <p class="goal__text">
+      Sitzt direkt nach dem Hero, zwischen Headline und den Kit-Cards.
+      Beim Scrollen explodiert das Feuer langsam — der User "zündet" es mit dem Scroll.
+      Text-Overlay "THE STUDIO IS ON FIRE." liegt immer drüber.
+      Das Video ist der emotionale Übergang von der Headline zu den Produkten.
+    </p>
+  </div>
+
+  <!-- Concepts -->
+  <p class="section-label">5 Prompt Concepts — Pick One</p>
+
+  <!-- 1 -->
+  <div class="concept">
+    <div class="concept__head">
+      <div class="concept__meta">
+        <div class="concept__num">1</div>
+        <span class="concept__title">Spark to Inferno</span>
+      </div>
+      <span class="concept__vibe">Sauberste Progression · Empfohlen</span>
+    </div>
+    <div class="concept__body">
+      <div class="prompt-block">
+        <span class="prompt-block__label">Prompt</span>
+        <div class="prompt-block__text" id="p1">Ultra slow motion fire ignition sequence on pure black background. Begins with a single glowing ember in the center of frame — barely visible, just a faint amber point of light. Over the duration, the ember ignites into a small flame, grows into a rising fire column, expands into a full-frame fireball explosion of orange and amber flames. The progression is completely smooth and linear — every frame is more intense than the previous one. No cuts, no camera movement, static wide shot. At the end: full screen blinding orange-white explosion with embers and sparks flying outward. Cinematic, photorealistic, ultra high detail. Black background only, no objects, no people, no text.</div>
+      </div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copy('p1',this)">Copy Prompt</button>
+      </div>
+      <p class="concept__tip">
+        <strong>Warum das funktioniert:</strong> Maximale Progression — von fast nichts zu voller Explosion. Perfekt für Scroll-Scrub. Jeder Frame ist ein klarer Schritt nach vorne. Schwarzer Hintergrund macht den Text-Overlay scharf lesbar.
+      </p>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="concept">
+    <div class="concept__head">
+      <div class="concept__meta">
+        <div class="concept__num">2</div>
+        <span class="concept__title">Shockwave Burst</span>
+      </div>
+      <span class="concept__vibe">Dramatisch · Stärkstes Visual</span>
+    </div>
+    <div class="concept__body">
+      <div class="prompt-block">
+        <span class="prompt-block__label">Prompt</span>
+        <div class="prompt-block__text" id="p2">Ultra slow motion concussive explosion shockwave on pure black background. Starts completely black, then a faint pressure ring expands outward from the center — barely visible heat distortion. The shockwave grows into a visible ring of compressed air, then fire ignites in its wake, expanding from center outward in a perfect sphere of orange and amber flame. The fire builds in density and brightness throughout the sequence — ending in a full-frame blinding fireball with debris and embers suspended in the air. Photorealistic, cinematic, high frame rate slow motion. Static camera, no movement. Pure black background.</div>
+      </div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copy('p2',this)">Copy Prompt</button>
+      </div>
+      <p class="concept__tip">
+        <strong>Warum das funktioniert:</strong> Der unsichtbare Anfang (schwarzes Frame) macht den Start des Scrolls mysteriös. Die Shockwave gibt dem Aufbau Physikalität — wirkt nicht generisch.
+      </p>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="concept">
+    <div class="concept__head">
+      <div class="concept__meta">
+        <div class="concept__num">3</div>
+        <span class="concept__title">808 Detonation</span>
+      </div>
+      <span class="concept__vibe">On-Brand · Direkte Markenverbindung</span>
+    </div>
+    <div class="concept__body">
+      <div class="prompt-block">
+        <span class="prompt-block__label">Prompt</span>
+        <div class="prompt-block__text" id="p3">Ultra slow motion explosion of a drum machine in a pitch black void. Begins with the drum machine sitting still, barely lit by a single orange glow. A crack forms in the casing, orange fire leaks through the seams. Then a catastrophic explosion — the machine shatters outward, each piece trailing fire and sparks in slow motion. By the final frame the entire frame is consumed in a dense fireball of orange amber flame with shrapnel and embers frozen in mid-air. No camera movement, static wide shot, pure black background. Cinematic VFX quality, photorealistic destruction, ultra slow motion, high detail fire simulation.</div>
+      </div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copy('p3',this)">Copy Prompt</button>
+      </div>
+      <p class="concept__tip">
+        <strong>Warum das funktioniert:</strong> "808 explodiert" ist exakt die Brand-Metapher für stxrm808 — Drums die so hart treffen dass sie detonieren. Stärkste Story-Connection zum Kit.
+      </p>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="concept">
+    <div class="concept__head">
+      <div class="concept__meta">
+        <div class="concept__num">4</div>
+        <span class="concept__title">Rising Wall of Fire</span>
+      </div>
+      <span class="concept__vibe">Atmosphärisch · Visuell ruhiger</span>
+    </div>
+    <div class="concept__body">
+      <div class="prompt-block">
+        <span class="prompt-block__label">Prompt</span>
+        <div class="prompt-block__text" id="p4">Ultra slow motion fire wall rising from the bottom of frame on a pure black background. Begins with a faint orange glow at the very bottom edge — barely a line of heat. Over the duration, a wall of fire rises upward filling the frame from bottom to top. The fire is dense, turbulent, photorealistic — deep orange at the base transitioning to bright amber and white-hot at the peaks. By the final frame the entire screen is consumed in a solid wall of roaring flame with no visible background. No camera movement. Static wide shot. No objects, no people, no text. Cinematic slow motion, high detail fire simulation.</div>
+      </div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copy('p4',this)">Copy Prompt</button>
+      </div>
+      <p class="concept__tip">
+        <strong>Warum das funktioniert:</strong> Der Scroll fühlt sich an als würde man die Flammen mit dem Finger hochschieben. Sehr intuitive Scroll-Metapher. Text-Overlay am Anfang gut lesbar (dunkler Unterer Teil), am Ende komplett Feuer.
+      </p>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="concept">
+    <div class="concept__head">
+      <div class="concept__meta">
+        <div class="concept__num">5</div>
+        <span class="concept__title">Ember Storm</span>
+      </div>
+      <span class="concept__vibe">Subtil · Längste Nutzbarkeit</span>
+    </div>
+    <div class="concept__body">
+      <div class="prompt-block">
+        <span class="prompt-block__label">Prompt</span>
+        <div class="prompt-block__text" id="p5">Ultra slow motion ember and spark storm on pure black background, building in intensity throughout the sequence. Begins with a few scattered glowing embers drifting through darkness — sparse, quiet, almost invisible. Gradually more embers appear, moving faster, glowing brighter. By the midpoint the frame is dense with sparks and fire particles. The final frames show a full chaotic storm of fire — thousands of embers and sparks filling the entire frame in a blinding orange-white blaze. Continuous linear buildup from zero to maximum. No camera movement, static wide shot. No objects, no people, no text. Macro cinematic lens, photorealistic particles, ultra slow motion.</div>
+      </div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copy('p5',this)">Copy Prompt</button>
+      </div>
+      <p class="concept__tip">
+        <strong>Warum das funktioniert:</strong> Ember-Storm hat den langsamsten Aufbau — gut für sehr lange Scroll-Sections. Wirkung ist hypnotisch. Funktioniert auch wenn man nur kurz durch-scrollt (auch frühe Frames sind schön).
+      </p>
+    </div>
+  </div>
+
+  <!-- Integration guide -->
+  <div class="integration">
+    <h2>How to put it on the site</h2>
+    <ol>
+      <li>Video in Higgsfield generieren, als <strong>MP4</strong> exportieren</li>
+      <li>Rename zu <strong>explosion.mp4</strong>, in <strong>/site/assets/</strong> ablegen (ersetzt das bestehende)</li>
+      <li>Das war's — die Seite nutzt es automatisch via <code style="color:var(--amber)">video-scrub.js</code></li>
+      <li>Optional: Länge des Scroll-Bereichs in <strong>video-scrub.css</strong> anpassen (<code style="color:var(--amber)">.video-scrub</code> height)</li>
+    </ol>
+    <div class="code-block">&lt;!-- So ist es aktuell eingebaut: --&gt;
+&lt;video id="scrubVideo" class="video-scrub__video"
+       muted playsinline preload="auto"&gt;
+  &lt;source src="assets/explosion.mp4" type="video/mp4" /&gt;
+&lt;/video&gt;
+
+/* GSAP ScrollTrigger steuert video.currentTime
+   → kein Autoplay, kein Loop nötig */</div>
+  </div>
+
+  <script>
+    function copy(id, btn) {
+      const text = document.getElementById(id).textContent.trim();
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'Copied ✓';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy Prompt';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>

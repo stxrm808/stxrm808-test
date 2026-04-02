@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fireworks AI — Hero Animation Prompts</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --fire:   #FF4400;
+      --amber:  #E8A020;
+      --bg:     #080808;
+      --card:   #0f0f0f;
+      --card2:  #141414;
+      --border: #1e1e1e;
+      --hot:    rgba(255,68,0,0.18);
+      --text:   #e8e8e8;
+      --muted:  rgba(255,255,255,0.38);
+      --green:  #22d46a;
+      --purple: #a855f7;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      min-height: 100vh;
+      padding: 3rem 1.5rem 8rem;
+    }
+
+    /* ── Header ── */
+    .header {
+      max-width: 900px;
+      margin: 0 auto 3.5rem;
+      text-align: center;
+    }
+    .header__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--purple);
+      margin-bottom: 1rem;
+    }
+    .header__eyebrow-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--purple); flex-shrink: 0;
+    }
+    .header__title {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .header__title em { color: var(--fire); font-style: normal; }
+    .header__sub {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+    .header__badge {
+      display: inline-block;
+      margin-top: 1.25rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: rgba(168,85,247,0.1);
+      color: var(--purple);
+      border: 1px solid rgba(168,85,247,0.3);
+      padding: 4px 14px;
+      border-radius: 99px;
+    }
+
+    /* ── Settings ── */
+    .settings {
+      max-width: 900px;
+      margin: 0 auto 2rem;
+      background: var(--card);
+      border: 1px solid rgba(168,85,247,0.2);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+    }
+    .setting { display: flex; flex-direction: column; gap: 4px; }
+    .setting__label {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .setting__val { font-size: 0.95rem; font-weight: 600; color: var(--amber); }
+
+    /* ── Where it goes ── */
+    .goal {
+      max-width: 900px;
+      margin: 0 auto 3rem;
+      background: var(--card);
+      border: 1px solid rgba(34,212,106,0.25);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+    }
+    .goal__label {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--green); margin-bottom: 0.5rem;
+    }
+    .goal__text { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+    .goal__text strong { color: var(--text); }
+
+    /* ── Style reference ── */
+    .style-ref {
+      max-width: 900px;
+      margin: 0 auto 3rem;
+      background: var(--card);
+      border: 1px solid rgba(255,68,0,0.2);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+    }
+    .style-ref__label {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--fire); margin-bottom: 0.75rem;
+    }
+    .style-ref__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.6rem;
+    }
+    .style-ref__item {
+      background: #0a0a0a;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .style-ref__item strong { color: var(--amber); display: block; margin-bottom: 2px; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; }
+
+    /* ── Section label ── */
+    .section-label {
+      max-width: 900px; margin: 0 auto 1.25rem;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--muted);
+    }
+
+    /* ── Concept card ── */
+    .concept {
+      max-width: 900px; margin: 0 auto 2rem;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; overflow: hidden; transition: border-color 0.25s;
+    }
+    .concept:hover { border-color: rgba(255,68,0,0.3); }
+    .concept__head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; padding: 1.1rem 1.4rem;
+      background: var(--card2); border-bottom: 1px solid var(--border); flex-wrap: wrap;
+    }
+    .concept__meta { display: flex; align-items: center; gap: 0.75rem; }
+    .concept__num {
+      width: 28px; height: 28px; border-radius: 6px;
+      background: var(--hot); border: 1px solid rgba(255,68,0,0.35);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 800; color: var(--fire); flex-shrink: 0;
+    }
+    .concept__title { font-size: 1rem; font-weight: 700; color: var(--text); }
+    .concept__vibe {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--amber);
+      background: rgba(232,160,32,0.1); border: 1px solid rgba(232,160,32,0.2);
+      padding: 2px 10px; border-radius: 3px; white-space: nowrap;
+    }
+    .concept__body { padding: 1.4rem; display: flex; flex-direction: column; gap: 1.1rem; }
+
+    .prompt-block { display: flex; flex-direction: column; gap: 0.5rem; }
+    .prompt-block__label {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .prompt-block__text {
+      background: #0a0a0a; border: 1px solid var(--border);
+      border-radius: 8px; padding: 1rem 1.1rem;
+      font-size: 0.88rem; line-height: 1.75; color: #d0d0d0;
+      white-space: pre-wrap; word-break: break-word;
+    }
+
+    .prompt-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center; }
+    .btn-copy {
+      padding: 7px 18px; font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; background: var(--hot); color: var(--fire);
+      border: 1px solid rgba(255,68,0,0.35); border-radius: 6px;
+      cursor: pointer; transition: background 0.2s, color 0.2s;
+    }
+    .btn-copy:hover { background: rgba(255,68,0,0.3); color: #fff; }
+    .btn-copy.copied { background: rgba(34,212,106,0.15); color: var(--green); border-color: rgba(34,212,106,0.3); }
+
+    .concept__rec {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--green);
+    }
+
+    .concept__tip {
+      font-size: 0.8rem; color: var(--muted); line-height: 1.6;
+      padding: 0.75rem 1rem; border-left: 2px solid rgba(255,68,0,0.3);
+      background: rgba(255,68,0,0.04); border-radius: 0 6px 6px 0;
+    }
+    .concept__tip strong { color: var(--amber); }
+
+    /* ── Integration ── */
+    .integration {
+      max-width: 900px; margin: 3rem auto 0;
+      background: var(--card); border: 1px solid rgba(34,212,106,0.2);
+      border-radius: 14px; padding: 2rem;
+    }
+    .integration h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; color: var(--green); }
+    .integration ol { padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; }
+    .integration li { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+    .integration li strong { color: var(--text); }
+    .code-block {
+      background: #0a0a0a; border: 1px solid var(--border);
+      border-radius: 8px; padding: 1rem 1.2rem; margin-top: 1.2rem;
+      font-size: 0.82rem; color: #a8e6a3; line-height: 1.7;
+      white-space: pre; overflow-x: auto;
+    }
+
+    .divider {
+      max-width: 900px; margin: 3rem auto;
+      border: none; border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <p class="header__eyebrow">
+      <span class="header__eyebrow-dot"></span>
+      Fireworks AI · stxrm808 Hero Animation
+    </p>
+    <h1 class="header__title">Hero.<br/><em>On Fire.</em></h1>
+    <p class="header__sub">
+      Prompts für Fireworks AI — generiert die Hero-Background-Animation.
+      Style: wie Drumcat-Animationen. Vibe: fire, bounce, percussive energy.
+      Export als MP4 oder WebM → rein in den Hero-Background.
+    </p>
+    <span class="header__badge">Fireworks AI · Text-to-Video</span>
+  </div>
+
+  <!-- Settings -->
+  <div class="settings">
+    <div class="setting">
+      <span class="setting__label">Platform</span>
+      <span class="setting__val">Fireworks AI</span>
+    </div>
+    <div class="setting">
+      <span class="setting__label">Duration</span>
+      <span class="setting__val">4–6 Sekunden</span>
+    </div>
+    <div class="setting">
+      <span class="setting__label">Aspect Ratio</span>
+      <span class="setting__val">16:9</span>
+    </div>
+    <div class="setting">
+      <span class="setting__label">Resolution</span>
+      <span class="setting__val">1920×1080</span>
+    </div>
+    <div class="setting">
+      <span class="setting__label">Motion</span>
+      <span class="setting__val">Loop-fähig</span>
+    </div>
+    <div class="setting">
+      <span class="setting__label">File name</span>
+      <span class="setting__val">hero-bg.mp4</span>
+    </div>
+  </div>
+
+  <!-- Goal -->
+  <div class="goal">
+    <p class="goal__label">Was diese Animation auf der Seite macht</p>
+    <p class="goal__text">
+      Läuft als <strong>full-bleed Hintergrund im Hero</strong> — hinter "SET THE BEAT / ON FIRE." und den CTA-Buttons.
+      Muted, loopend, ~20% Opacity. Soll Energie und Bewegung geben ohne den Text zu erschlagen.
+      <strong>Drumcat-Style:</strong> Percussive, rhythmische Bewegung — als ob das Video auf den Beat geht.
+    </p>
+  </div>
+
+  <!-- Style reference: Drumcat vibes -->
+  <div class="style-ref">
+    <p class="style-ref__label">Style-Referenz — Drumcat Vibe</p>
+    <div class="style-ref__grid">
+      <div class="style-ref__item">
+        <strong>Bewegung</strong>
+        Percussiv, rhythmisch — wie Schläge, die sich ausbreiten
+      </div>
+      <div class="style-ref__item">
+        <strong>Farbe</strong>
+        Tief orange, amber, weiß-heiß — keine kalten Farben
+      </div>
+      <div class="style-ref__item">
+        <strong>Background</strong>
+        Schwarz — der Hero-Text muss drüber lesbar bleiben
+      </div>
+      <div class="style-ref__item">
+        <strong>Energie</strong>
+        Bounce, Aufschlag, Impact — nicht smooth-ambient
+      </div>
+      <div class="style-ref__item">
+        <strong>Loop</strong>
+        Nahtlos loopbar — seamless repeat
+      </div>
+      <div class="style-ref__item">
+        <strong>Tempo</strong>
+        Mittel-schnell — nicht zu langsam, nicht chaotisch
+      </div>
+    </div>
+  </div>
+
+  <p class="section-label">5 Prompt Concepts — Pick One</p>
+
+  <!-- 1 -->
+  <div class="concept">
+    <div class="concept__head">
+      <div class="concept__meta">
+        <div class="concept__num">1</div>
+        <span class="concept__title">Bounce Impact</span>
+      </div>
+      <span class="concept__vibe">Drumcat Style · Empfohlen</span>
+    </div>
+    <div class="concept__body">
+      <div class="prompt-block">
+        <span class="prompt-block__label">Prompt</span>
+        <div class="prompt-block__text" id="p1">Abstract fire energy pulse on pure black background. Rhythmic concussive shockwaves expanding outward from center, like a bass drop or drum hit visualized as fire. Deep orange and amber energy rings ripple outward in slow motion, each pulse more intense than the last. The motion has a bounce quality — impact, spread, decay, repeat. Fire particles burst outward on each pulse beat. High contrast, cinematic, photorealistic fire simulation. No people, no objects, no text. Seamless loop, ultra slow motion capture, black background only.</div>
+      </div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copy('p1',this)">Copy Prompt</button>
+        <span class="concept__rec">★ Top Pick</span>
+      </div>
+      <p class="concept__tip">
+        <strong>Drumcat-Verbindung:</strong> Der "Impact → spread → decay → repeat" Rhythmus imitiert direkt einen Drum-Hit. Fühlt sich an als würde das Video auf den Beat reagieren — ohne Audio.
+      </p>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="concept">
+    <div class="concept__head">
+      <div class="concept__meta">
+        <div class="concept__num">2</div>
+        <span class="concept__title">808 Pressure Wave</span>
+      </div>
+      <span class="concept__vibe">Bass-Heavy · On-Brand</span>
+    </div>
+    <div class="concept__body">
+      <div class="prompt-block">
+        <span class="prompt-block__label">Prompt</span>
+        <div class="prompt-block__text" id="p2">Ultra slow motion 808 bass wave visualization on black background. Deep sub-frequency pressure waves made visible as distortion rings and fire — emanating from a central point, spreading outward like ripples in liquid fire. Orange and amber heat distortion. The waves are heavy, thick, physical — like you can feel the weight of each one. Between each wave: a brief moment of darkness, then the next hit. Seamless loop. No people, no objects. Cinematic VFX, photorealistic fire and heat distortion. Black background.</div>
+      </div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copy('p2',this)">Copy Prompt</button>
+      </div>
+      <p class="concept__tip">
+        <strong>Warum das passt:</strong> "808" ist der Markenname — eine Animation die direkt ein 808-Basswave visualisiert ist maximale Brand-Kohärenz. Schwer, physisch, druckvoll.
+      </p>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="concept">
+    <div class="concept__head">
+      <div class="concept__meta">
+        <div class="concept__num">3</div>
+        <span class="concept__title">Fire Bounce Grid</span>
+      </div>
+      <span class="concept__vibe">Rhythmisch · Hypnotisch</span>
+    </div>
+    <div class="concept__body">
+      <div class="prompt-block">
+        <span class="prompt-block__label">Prompt</span>
+        <div class="prompt-block__text" id="p3">Rhythmic fire bounce pattern on pure black background. Multiple points of fire igniting and extinguishing in a rhythmic staggered pattern — like a step sequencer visualized as fire. Each point of light: a small amber-orange fireball that pops, bounces, fades, then the next one hits. The overall pattern creates a wave across the frame — left to right, back to left. Percussive fire energy. Macro lens, cinematic depth of field. Seamless loop, no people, no objects, no text. Deep blacks, fire orange only.</div>
+      </div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copy('p3',this)">Copy Prompt</button>
+      </div>
+      <p class="concept__tip">
+        <strong>Drumcat-Referenz:</strong> "Step sequencer als Feuer" — die staggered Bewegung hat die selbe Energie wie eine Drum Machine die durchläuft. Visuell komplex, rhythmisch eindeutig.
+      </p>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="concept">
+    <div class="concept__head">
+      <div class="concept__meta">
+        <div class="concept__num">4</div>
+        <span class="concept__title">Flame Wall Pulse</span>
+      </div>
+      <span class="concept__vibe">Cinematic · Größtes Visual</span>
+    </div>
+    <div class="concept__body">
+      <div class="prompt-block">
+        <span class="prompt-block__label">Prompt</span>
+        <div class="prompt-block__text" id="p4">Slow motion wall of fire pulsing with rhythmic energy on black background. A dense horizontal band of flames stretches across the lower third of the frame — roaring and alive. With each "beat", the flames surge upward in a sharp spike then fall back, creating a rhythmic bounce pattern along the entire wall simultaneously. The fire breathes like a living thing: surge, bounce, settle, surge again. Deep orange base, amber mid, white-hot peaks. Cinematic fire simulation, photorealistic, static camera, seamless loop. Black background, no people, no objects.</div>
+      </div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copy('p4',this)">Copy Prompt</button>
+      </div>
+      <p class="concept__tip">
+        <strong>Warum das als Hero funktioniert:</strong> Die Flammen bleiben im unteren Drittel — der Text "SET THE BEAT / ON FIRE." hat oben genug Platz und Kontrast. Der Surge-Bounce Rhythmus gibt dem Hero Leben ohne ihn zu überladen.
+      </p>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="concept">
+    <div class="concept__head">
+      <div class="concept__meta">
+        <div class="concept__num">5</div>
+        <span class="concept__title">Ember Snare Hit</span>
+      </div>
+      <span class="concept__vibe">Minimal · Subtilste Option</span>
+    </div>
+    <div class="concept__body">
+      <div class="prompt-block">
+        <span class="prompt-block__label">Prompt</span>
+        <div class="prompt-block__text" id="p5">Minimalist fire particle burst on pure black. A tight cluster of embers and sparks erupts from the center of the frame with the sharp percussive energy of a snare hit — exploding outward in all directions, then slowly drifting and fading to black. The motion is crisp at the start: sharp, immediate impact. Then slow and floaty as particles drift. Then black. Then it repeats — like a snare that hits, decays, and hits again. Amber and white sparks, deep black background. Ultra high detail particle simulation, cinematic, seamless loop. No objects, no people.</div>
+      </div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copy('p5',this)">Copy Prompt</button>
+      </div>
+      <p class="concept__tip">
+        <strong>Für dezenten Einsatz:</strong> Dieser Prompt erzeugt die subtilste Animation — gut wenn der Hero-Text maximale Priorität haben soll und das Video nur unterschwellig Energie geben soll.
+      </p>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- Integration -->
+  <div class="integration">
+    <h2>How to put it on the site</h2>
+    <ol>
+      <li>Video in Fireworks AI generieren, als <strong>MP4</strong> exportieren</li>
+      <li>Rename zu <strong>hero-bg.mp4</strong> → ablegen in <strong>/site/assets/</strong></li>
+      <li>Sag Claude Code: <strong>"bau das hero-bg.mp4 als hintergrund in den hero ein"</strong></li>
+    </ol>
+    <div class="code-block">&lt;!-- Was eingebaut wird: --&gt;
+&lt;video class="hero__video-bg"
+       src="assets/hero-bg.mp4"
+       autoplay muted loop playsinline&gt;
+&lt;/video&gt;
+
+/* CSS — hinter Hero-Text, 20% opacity + screen blend */
+.hero__video-bg {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0.2;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 0;
+}</div>
+  </div>
+
+  <script>
+    function copy(id, btn) {
+      const text = document.getElementById(id).textContent.trim();
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'Copied ✓';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy Prompt';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
