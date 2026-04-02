@@ -1,7 +1,7 @@
 /* ============================================================
    stxrm808 — VIDEO SCROLL SCRUB
-   GSAP scrub smooths the progress value itself.
-   Frame-throttle prevents over-seeking.
+   Desktop: GSAP ScrollTrigger scrubs video.currentTime
+   Mobile/iOS: autoplay fallback (iOS blocks currentTime seeking)
    Video file: assets/explosion.mp4
    ============================================================ */
 
@@ -17,6 +17,22 @@
   video.addEventListener('error', () => {
     section.classList.add('video-scrub--hidden');
   });
+
+  // iOS / Android: currentTime seeking is blocked until user interaction.
+  // Fall back to autoplay so the video still plays on mobile.
+  const isMobile = window.innerWidth < 768 ||
+    /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+  if (isMobile) {
+    video.setAttribute('autoplay', '');
+    video.play().catch(() => {});
+    // Headline stays visible, then CSS transition fades it out after video ends
+    const headline = document.getElementById('scrubHeadline');
+    if (headline) {
+      headline.classList.add('is-mobile-visible');
+    }
+    return;
+  }
 
   video.pause();
   video.currentTime = 0;
